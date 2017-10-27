@@ -7,6 +7,7 @@ const history = createHistory()
 
 
 import '../style/main.less'
+import '../style/style.less'
 
 import UserInfo from '../containers/UserInfo'
 import CourseList from '../containers/CourseList'
