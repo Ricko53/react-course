@@ -31,7 +31,7 @@ export default class UserPage extends React.Component {
         console.log(this.props)
 
         return(
-            <article className="page">
+            <article className="user-page">
               <section className="info">
                 <img className="info-bg" src='http://test.img1.maka.im/user/1092434/thumb/25c6b52e9ea82f02c36ad3aca3982cac.jpg?x-oss-process=image/resize,w_5' />
                 <div className="info-box">
