@@ -15,7 +15,7 @@ export default class FakeModel extends React.Component {
 
     render() {
 
-      let { showDetail, info } = this.props
+      let { showDetail, info, closeDetail } = this.props
 
       let bgStyle = {
         backgroundImage: info.coverImage,
@@ -54,7 +54,7 @@ export default class FakeModel extends React.Component {
                   <p className="box-name">已有 4 人参加课程</p>
                 </div>
                 <div className="box-right">
-                  <div className="box-button">
+                  <div className="box-button" onClick={closeDetail}>
                     <i className="icon-price-tag"></i>
                   </div>
                 </div>
@@ -75,4 +75,6 @@ export default class FakeModel extends React.Component {
 FakeModel.propTypes = {
   showDetail: PropTypes.bool,
   info: PropTypes.object,
+  close: PropTypes.bool,
+  closeDetail: PropTypes.func,
 }

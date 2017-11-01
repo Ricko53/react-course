@@ -20,7 +20,7 @@ export default class FakeModel extends React.Component {
 
     render() {
 
-      let { show, info } = this.props
+      let { show, info, close } = this.props
 
       if(show) {
 
@@ -38,14 +38,24 @@ export default class FakeModel extends React.Component {
           width: info.infoClient.width,
         }
 
-        let coverSpring = {
+        let coverSpring = close ? {
+          top: spring(info.coverClient.y, springConfig),
+          left: spring(info.coverClient.x, springConfig),
+          height: spring(info.coverClient.height, springConfig),
+          width: spring(info.coverClient.width, springConfig),
+        } : {
           top: spring(0, springConfig),
           left: spring(0, springConfig),
           height: spring(detailPageCover.h, springConfig),
           width: spring(detailPageCover.w, springConfig),
         }
 
-        let infoSpring = {
+        let infoSpring = close ? {
+          top: spring(info.infoClient.y, springConfig),
+          left: spring(info.infoClient.x, springConfig),
+          height: spring(info.infoClient.height, springConfig),
+          width: spring(info.infoClient.width, springConfig),
+        } : {
           top: spring(detailPageInfo.top, springConfig),
           left: spring(detailPageInfo.left, springConfig),
           height: spring(detailPageInfo.h, springConfig),
@@ -53,7 +63,7 @@ export default class FakeModel extends React.Component {
         }
 
         return(
-          <section className="fake-layer">
+          <section className={close ? "fake-layer close-transition" : "fake-layer"}>
             <Motion defaultStyle={coverStyle}  style={coverSpring}>
               {
                 ({top, left, height, width}) => <div className="fake-cover" style={{

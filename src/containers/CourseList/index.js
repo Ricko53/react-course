@@ -26,11 +26,13 @@ export default class CourseList extends React.Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this)
+        this.closeDetailFunc = this.closeDetailFunc.bind(this)
 
         this.state = {
           showModel: false,
           baseInfo: {},
           showDetail: false,
+          closeDetail: false,
         }
     }
 
@@ -61,6 +63,21 @@ export default class CourseList extends React.Component {
          })
        }, 500)
 
+    }
+
+    closeDetailFunc() {
+      this.setState({
+        closeDetail: true,
+        showDetail: false,
+      })
+
+      setTimeout(() => {
+        this.setState({
+          showModel: false,
+          closeDetail: false,
+        })
+        document.body.style.overflow = "auto"        
+      }, 600)
     }
 
     render() {
@@ -148,8 +165,8 @@ export default class CourseList extends React.Component {
                 </section>
               </section>
             </section>
-            <FakeModel show={this.state.showModel} info={this.state.baseInfo}></FakeModel>
-            <CourseDetail showDetail={this.state.showDetail} info={this.state.baseInfo}></CourseDetail>
+            <FakeModel show={this.state.showModel} info={this.state.baseInfo} close={this.state.closeDetail}></FakeModel>
+            <CourseDetail showDetail={this.state.showDetail} info={this.state.baseInfo} closeDetail={this.closeDetailFunc}></CourseDetail>
           </article>
         )
     }
