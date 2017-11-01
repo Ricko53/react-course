@@ -77,7 +77,7 @@ export default class CourseList extends React.Component {
           closeDetail: false,
         })
         document.body.style.overflow = "auto"        
-      }, 600)
+      }, 300)
     }
 
     render() {

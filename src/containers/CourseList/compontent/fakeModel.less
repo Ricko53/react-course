@@ -7,13 +7,14 @@
   pointer-events: none;
   z-index: 5;
   background: #fdfdfd;
-  transition: opacity 0.6s ease;
+  // transition: opacity 0.6s ease;
 
   .fake-cover {
     position: absolute;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 8px;
     z-index: 1;
   }
 
@@ -27,5 +28,6 @@
 }
 
 .close-transition {
-  opacity: 0;
+  // opacity: 0;
+  background: rgba(255, 255, 255, 0);
 }
