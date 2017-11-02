@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 import FakeModel from './compontent/FakeModel.js'
 import CourseDetail from './compontent/CourseDetail.js'
@@ -24,7 +25,6 @@ function is_ignorable( nod )
 }
 
 let winWidth = window.innerWidth
-let previous = 0
 
 export default class CourseList extends React.Component {
 
@@ -34,7 +34,6 @@ export default class CourseList extends React.Component {
         this.handleClick = this.handleClick.bind(this)
         this.closeDetailFunc = this.closeDetailFunc.bind(this)
         this.handDateFunc = this.handDateFunc.bind(this)
-        this.transitionInFunc = this.transitionInFunc.bind(this)
 
         this.state = {
           showModel: false,
@@ -44,26 +43,12 @@ export default class CourseList extends React.Component {
           courseList: [],
           currentDate: 0,
           listX: 0,
-          enterClass: 'entering'
         }
     }
 
     componentWillMount() {
       this.setState({
         courseList: mokeDate.data.dateList
-      })
-      this.transitionInFunc()
-    }
-
-    transitionInFunc() {
-      this.setState({
-        enterClass: 'entering'
-      })
-
-      setTimeout(()=>{
-        this.setState({
-          enterClass: 'entered'
-        })
       })
     }
 
@@ -85,7 +70,6 @@ export default class CourseList extends React.Component {
         currentDate: index,
       })
 
-      this.transitionInFunc()
     }
 
     handleClick(e) {
@@ -129,7 +113,7 @@ export default class CourseList extends React.Component {
 
     render() {
 
-        let { courseList, currentDate, listX, enterClass } = this.state
+        let { courseList, currentDate, listX } = this.state
 
         let listStyle = {
           transform: `translateX(${listX * -1}px)`,
@@ -152,11 +136,16 @@ export default class CourseList extends React.Component {
               <div className="calendar-date">October 30th</div>
             </section>
             <section className="course-content">
-              <section className={classnames("course-list", enterClass)}>
+              <section className="course-list">
+                <CSSTransitionGroup 
+                  transitionName="course"
+                  transitionLeave={false}
+                  transitionEnterTimeout={800}
+                >
                 {
                   curList.map((item, i) => {
                     return (
-                      <section className="course-item" key={i}>
+                      <section className="course-item" key={item.course_id}>
                         <div className="item-cover" onClick={ e => this.handleClick(e, item.course_id)} style={{backgroundImage:`url(${item.course_cover})`}}>
                           <div className="cover-info">
                             <div className="cover-name">{item.course_name}</div>
@@ -180,6 +169,7 @@ export default class CourseList extends React.Component {
                     )
                   })
                 }
+                </CSSTransitionGroup>
               </section>
             </section>
             <FakeModel show={this.state.showModel} info={this.state.baseInfo} close={this.state.closeDetail}></FakeModel>

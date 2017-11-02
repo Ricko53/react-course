@@ -142,28 +142,34 @@
       }
     }
 
-    .entering {
-      .course-item {
-        transform: translateY(50px);
+    .course-enter {
+      transform: translateY(80px);
+    }
+
+    .course-enter.course-enter-active {
+      transform: translateY(0);
+
+      &:first-child {
+        transition: transform 400ms ease-in;
+      }
+
+      &:nth-child(2) {
+        transition: transform 500ms ease-in;
+      }
+
+      &:nth-child(3) {
+        transition: transform 600ms ease-in;
       }
     }
 
-    .entered {
-      .course-item {
-        transform: translateY(0);
+    // .course-leave {
+    //   transform: translateY(0);
+    // }
 
-        &:first-child{
-          transition: transform .4s ease;
-        }
+    // .course-leave.course-leave-active {
+    //   transform: translateY(80px);
+    //   transition: transform 300ms ease-in;
+    // }
 
-        &:nth-child(2){
-          transition: transform .6s ease;
-        }
-
-        &:first-child(3){
-          transition: transform .8s ease;
-        }
-      }
-    }
   }
 }
