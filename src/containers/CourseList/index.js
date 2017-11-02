@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import FakeModel from './compontent/FakeModel.js'
 import CourseDetail from './compontent/CourseDetail.js'
+
+import mokeDate from './mokeDate.js'
 
 import './index.less'
 
@@ -20,6 +23,9 @@ function is_ignorable( nod )
          ( (nod.nodeType == 3) && is_all_ws(nod) ); // 仅含空白符的文字节点
 }
 
+let winWidth = window.innerWidth
+let previous = 0
+
 export default class CourseList extends React.Component {
 
     constructor(props) {
@@ -27,17 +33,59 @@ export default class CourseList extends React.Component {
 
         this.handleClick = this.handleClick.bind(this)
         this.closeDetailFunc = this.closeDetailFunc.bind(this)
+        this.handDateFunc = this.handDateFunc.bind(this)
+        this.transitionInFunc = this.transitionInFunc.bind(this)
 
         this.state = {
           showModel: false,
           baseInfo: {},
           showDetail: false,
           closeDetail: false,
+          courseList: [],
+          currentDate: 0,
+          listX: 0,
+          enterClass: 'entering'
         }
     }
 
     componentWillMount() {
+      this.setState({
+        courseList: mokeDate.data.dateList
+      })
+      this.transitionInFunc()
+    }
 
+    transitionInFunc() {
+      this.setState({
+        enterClass: 'entering'
+      })
+
+      setTimeout(()=>{
+        this.setState({
+          enterClass: 'entered'
+        })
+      })
+    }
+
+    handDateFunc(e, index) {
+      // calendar list transform x
+      if(e.target.offsetLeft > winWidth / 2 ) {
+
+          let curPosition = e.target.getBoundingClientRect()
+
+          let moveX = this.state.listX + ( curPosition.x - winWidth / 2 + 40 )
+
+          this.state.listX = moveX
+
+      } else {
+        this.state.listX = 0
+      }
+
+      this.setState({
+        currentDate: index,
+      })
+
+      this.transitionInFunc()
     }
 
     handleClick(e) {
@@ -62,7 +110,6 @@ export default class CourseList extends React.Component {
            showDetail: true,
          })
        }, 500)
-
     }
 
     closeDetailFunc() {
@@ -82,87 +129,57 @@ export default class CourseList extends React.Component {
 
     render() {
 
+        let { courseList, currentDate, listX, enterClass } = this.state
+
+        let listStyle = {
+          transform: `translateX(${listX * -1}px)`,
+        }
+
+        let curList = courseList[currentDate].courseList
+
         return(
           <article className="course-page">
             <section className="calendar">
-              <div className="calendar-list">
-                <div className="calendar-item">Monday</div>
-                <div className="calendar-item">Tuesday</div>
-                <div className="calendar-item curent-item">Wednesday</div>
-                <div className="calendar-item">Thursday</div>
-                <div className="calendar-item">Firday</div>
-                <div className="calendar-item">Saturday</div>
-                <div className="calendar-item">Sunday</div>
+              <div className="calendar-srcoll">
+                <div className="calendar-list" style={listStyle}>
+                {
+                  courseList.map( ( item ,i ) => {
+                    return <div key={i} onClick={ e => this.handDateFunc(e, i)} className={classnames("calendar-item", {"curent-item" : currentDate === i})}>{item.dateName}</div> 
+                  })
+                }
+                </div>
               </div>
               <div className="calendar-date">October 30th</div>
             </section>
             <section className="course-content">
-              <section className="course-list">
-                <section className="course-item" >
-                  <div className="item-cover" onClick={ e => this.handleClick(e)} style={{backgroundImage:"url(https://static1.keepcdn.com/misc/2016/06/02/23/554474e4c9000000.jpg)"}}>
-                    <div className="cover-info">
-                      <div className="cover-name">邹市明拳击燃脂</div>
-                      <div className="cover-date">
-                        <i className="icon-clock"></i>
-                        9:30 - 11:00
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item-info">
-                    <div className="item-left">
-                      <img className="item-thumb" src="http://static1.keepcdn.com/avatar/2017/10/26/17/644c740dac007c38a3134f84950a4ba3fc035ceb.jpg?imageMogr2/thumbnail/96x" />
-                      <div className="detail">
-                        <div className="name">Humble</div>
-                        <p className="desc">Kendrick Lamar on DAMN.</p>
-                      </div>
-                    </div>
-                    <div className="item-right"></div>
-                  </div>
-                </section>
-
-                <section className="course-item">
-                  <div className="item-cover" onClick={ e => this.handleClick(e)} style={{backgroundImage:"url(http://static1.keepcdn.com/2017/10/13/10/1507862317459_750x700.jpg)"}}>
-                    <div className="cover-info">
-                      <div className="cover-name">李现 HIIT燃脂挑战</div>
-                      <div className="cover-date">
-                        <i className="icon-clock"></i>
-                        4:30 - 6:00
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item-info">
-                    <div className="item-left">
-                      <img className="item-thumb" src="http://static1.keepcdn.com/avatar/2017/10/26/17/644c740dac007c38a3134f84950a4ba3fc035ceb.jpg?imageMogr2/thumbnail/96x" />
-                      <div className="detail">
-                        <div className="name">Humble</div>
-                        <p className="desc">Kendrick Lamar on DAMN.</p>
-                      </div>
-                    </div>
-                    <div className="item-right"></div>
-                  </div>
-                </section>
-
-                <section className="course-item">
-                  <div className="item-cover" onClick={ e => this.handleClick(e)} style={{backgroundImage:"url(https://static1.keepcdn.com/2016/11/08/15/1478588604301_750x700.jpg)"}}>
-                    <div className="cover-info">
-                      <div className="cover-name">邹市明战斗跳绳</div>
-                      <div className="cover-date">
-                        <i className="icon-clock"></i>
-                        7:30 - 9:00
-                      </div>
-                    </div>
-                  </div>
-                  <div className="item-info">
-                    <div className="item-left">
-                      <img className="item-thumb" src="http://static1.keepcdn.com/avatar/2017/10/26/17/644c740dac007c38a3134f84950a4ba3fc035ceb.jpg?imageMogr2/thumbnail/96x" />
-                      <div className="detail">
-                        <div className="name">Humble</div>
-                        <p className="desc">Kendrick Lamar on DAMN.</p>
-                      </div>
-                    </div>
-                    <div className="item-right"></div>
-                  </div>
-                </section>
+              <section className={classnames("course-list", enterClass)}>
+                {
+                  curList.map((item, i) => {
+                    return (
+                      <section className="course-item" key={i}>
+                        <div className="item-cover" onClick={ e => this.handleClick(e, item.course_id)} style={{backgroundImage:`url(${item.course_cover})`}}>
+                          <div className="cover-info">
+                            <div className="cover-name">{item.course_name}</div>
+                            <div className="cover-date">
+                              <i className="icon-clock"></i>
+                              {item.course_date}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="item-info">
+                          <div className="item-left">
+                            <img className="item-thumb" src={item.course_coach.thumb} />
+                            <div className="detail">
+                              <div className="name">{item.course_coach.name}</div>
+                              <p className="desc">{item.course_coach.desc}</p>
+                            </div>
+                          </div>
+                          <div className="item-right"></div>
+                        </div>
+                      </section>
+                    )
+                  })
+                }
               </section>
             </section>
             <FakeModel show={this.state.showModel} info={this.state.baseInfo} close={this.state.closeDetail}></FakeModel>
