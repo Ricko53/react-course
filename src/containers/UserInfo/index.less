@@ -17,21 +17,10 @@
 
 .info {
   position: relative;
-  height: 200px;
+  height: 13rem;
   padding: 0 20px;
   display: flex;
   align-items: center;
-  
-  .info-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    filter: blur(10px);
-    display: none;
-  }
 
   .info-box {
     display: flex;
@@ -41,6 +30,7 @@
 
     .box-base {
       display: flex;
+      align-items: center;
 
       .thumb {
         height: 48px;
@@ -58,6 +48,7 @@
         }
 
         .address {
+          margin-top: .3rem;
           opacity: 0.5;
           font-size: 12px;
           color: #FFFFFF;
@@ -71,14 +62,15 @@
 .content {
   position: relative;
   background: #f2f2f2;
-  height: 200px;
+  height: 10rem;
 
   .content-box {
     position: relative;
     top: -60px;
-    height: 284px;
+    // height: 284px;
     width: 350px;
     margin: auto;
+    padding: 1rem 0;
     background: #FFFFFF;
     box-shadow: 0 2px 11px 0 rgba(0,0,0,0.11);
     border-radius: 8px;
@@ -89,56 +81,81 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      height: 50%;
+      height: 4rem;
       padding: 0 2rem;
+      border-bottom: 1px solid #ECECEC;
+      color: #383838;
+      font-size: 16px;
+      cursor: pointer;
 
-      &:first-child {
-        border-bottom: 1px solid #ECECEC;
-      }
-
-      .box-collections {
-        font-size: 48px;
-        color: #383838;
-        letter-spacing: 0;
-        line-height: 39px;
+      &:last-child {
+        border: none;
       }
 
       .box-name {
-        margin-top: 0.5rem;
-        opacity: 0.6;
-        font-size: 14px;
-        color: #383838;
-        letter-spacing: 0;
-      }
-
-      .box-follows-list {
-        position: relative;
-
-        .follows-item {
-          height: 48px;
-          width: 48px;
-          border-radius: 50%;
-          margin-left: -24px;
-          box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.16);
-
-          &:first-child {
-            margin-left: 0;
-          }
+        display: flex;
+        align-items: center;
+        i {
+          opacity: 0.5;
+          margin-right: 1rem;
+          font-size: 20px;
         }
       }
 
-      .box-button {
-        height: 36px;
-        width: 36px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 18px;
-        color: #fff;
-        background: #DE3164;
-        border-radius: 50%;
-        box-shadow: 0 16px 34px 0 rgba(0,0,0,0.16);
-        cursor: pointer;
+      .box-arrow {
+        transform: rotate(-90deg);
+
+        i {
+          opacity: 0.5;
+        }
       }
+      // &:first-child {
+      //   border-bottom: 1px solid #ECECEC;
+      // }
+
+      // .box-collections {
+      //   font-size: 48px;
+      //   color: #383838;
+      //   letter-spacing: 0;
+      //   line-height: 39px;
+      // }
+
+      // .box-name {
+      //   margin-top: 0.5rem;
+      //   opacity: 0.6;
+      //   font-size: 14px;
+      //   color: #383838;
+      //   letter-spacing: 0;
+      // }
+
+      // .box-follows-list {
+      //   position: relative;
+
+      //   .follows-item {
+      //     height: 48px;
+      //     width: 48px;
+      //     border-radius: 50%;
+      //     margin-left: -24px;
+      //     box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.16);
+
+      //     &:first-child {
+      //       margin-left: 0;
+      //     }
+      //   }
+      // }
+
+      // .box-button {
+      //   height: 36px;
+      //   width: 36px;
+      //   line-height: 40px;
+      //   text-align: center;
+      //   font-size: 18px;
+      //   color: #fff;
+      //   background: #DE3164;
+      //   border-radius: 50%;
+      //   box-shadow: 0 16px 34px 0 rgba(0,0,0,0.16);
+      //   cursor: pointer;
+      // }
     }
   }
 }
@@ -146,22 +163,23 @@
 .show {
   position: relative;
   width: 100%;
+  height: calc( ~"100vh - 23rem" );
+  overflow: hidden;
 
   .list {
     position: relative;
     display: flex;
+    height: 100%;
+    transition: transform .5s ease;
 
     .item {
       position: relative;
       min-width: 100%;
-      width: 100vw;
-      height: calc( ~"100vh - 400px" );
+      // width: 100vw;
 
       .item-bg {
         width: 100%;
         height: 100%;
-        background-image: url(http://static1.keepcdn.com/2017/10/12/17/1507799644728_750x700.jpg);
-        // background-image: url(http://static1.keepcdn.com/2017/09/28/18/1506594830324_750x700.jpg);
         background-size: cover;
         background-repeat: no-repeat;
         // background-position: center;
@@ -183,6 +201,7 @@
         border-radius: 8px;
 
         .content-tips {
+          margin-top: .2rem;
           opacity: 0.6;
           font-size: 12px;
           color: #FDFDFD;

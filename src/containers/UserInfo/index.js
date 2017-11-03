@@ -3,6 +3,12 @@ import PropTypes from 'prop-types'
 
 import './index.less'
 
+import mokeData from './mokeUserData.js'
+
+let winWidth = window.innerWidth
+let startX = 0
+let moveIndex = 0
+
 export default class UserPage extends React.Component {
 
     constructor(props) {
@@ -11,10 +17,19 @@ export default class UserPage extends React.Component {
         //常用来绑定自定义函数，切记不要在这里或者组件的任何位置setState，state全部在reducer初始化，相信对开发的后期很有帮助
         //例子：this.myfunction = this.myfunction.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleTouchStart = this.handleTouchStart.bind(this)
+        this.handleTouchEnd = this.handleTouchEnd.bind(this)
+
+        this.state = {
+          userInfo: {},
+          moveX: 0,
+        }
     }
 
     componentWillMount() {
-
+      this.setState({
+        userInfo: mokeData.data
+      })
     }
 
     handleClick() {
@@ -22,24 +37,49 @@ export default class UserPage extends React.Component {
         // this.props.history.push('/')
     }
 
+    handleTouchStart(e) {
+      e.preventDefault()
+
+      let touchobj = e.changedTouches[0]
+      startX = touchobj.clientX
+
+    }
+
+    handleTouchEnd(e) {
+      e.preventDefault()
+
+      let touchobj = e.changedTouches[0]
+      let touchXDelta = startX - touchobj.clientX
+
+      if(touchXDelta > 0) {
+        moveIndex = moveIndex > this.state.userInfo.courseList.length - 2 ? moveIndex : moveIndex + 1
+      } else {
+        moveIndex = moveIndex === 0 ? 0 : moveIndex - 1
+      }
+
+      this.setState({
+        moveX: moveIndex * winWidth * -1
+      })
+
+    }
+
     render() {
-        // const { } = this.props
-        //还可以通过自定义样式传递给组件
 
-        // <img className="item-bg" src="http://static1.keepcdn.com/2017/10/13/10/1507862874726_750x700.jpg" />
+        const { userInfo, moveX } = this.state
 
-        console.log(this.props)
+        let listStyle = {
+          transform: `translateX(${moveX}px)`
+        }
 
         return(
             <article className="user-page">
               <section className="info">
-                <img className="info-bg" src='http://test.img1.maka.im/user/1092434/thumb/25c6b52e9ea82f02c36ad3aca3982cac.jpg?x-oss-process=image/resize,w_5' />
                 <div className="info-box">
                   <div className="box-base">
-                    <img className="thumb" src='http://test.img1.maka.im/user/1092434/thumb/25c6b52e9ea82f02c36ad3aca3982cac.jpg?x-oss-process=image/resize,w_100' />
+                    <img className="thumb" src={userInfo.thumb} />
                     <div className="base">
-                      <div className="name">Steve Nash</div>
-                      <div className="address">New York, USA</div>
+                      <div className="name">{userInfo.nikeName}</div>
+                      <div className="address">{userInfo.location}</div>
                     </div>
                   </div>
                   <div className="box-option"></div>
@@ -48,42 +88,61 @@ export default class UserPage extends React.Component {
               <section className="content">
                 <section className="content-box">
                   <div className="box-section">
-                    <div className="box-left">
-                      <div className="box-collections">231</div>
-                      <p className="box-name">Curated collections</p>
+                    <div className="box-name">
+                      <i className="icon-price-tag"></i>
+                      我的预约
                     </div>
-                    <div className="box-right"></div>
+                    <div className="box-arrow">
+                      <i className="icon-i_arrow10_12"></i>
+                    </div>
                   </div>
                   <div className="box-section">
-                    <div className="box-left">
-                      <div className="box-follows-list">
-                        <img className="follows-item" src="http://static1.keepcdn.com/avatar/2017/10/26/17/644c740dac007c38a3134f84950a4ba3fc035ceb.jpg?imageMogr2/thumbnail/96x" />
-                        <img className="follows-item" src="http://static1.keepcdn.com/avatar/2017/10/03/14/9fe9847048da659bf645749e75b49c840f348be9.jpg?imageMogr2/thumbnail/96x" />
-                        <img className="follows-item" src="http://static1.keepcdn.com/avatar/2017/10/26/13/0545ac7e18565ede040232294cfc6efdc053db0a.jpg?imageMogr2/thumbnail/96x" />
-                        <img className="follows-item" src="http://static1.keepcdn.com/avatar/2016/11/29/08/a659895c477be622a4855b4d26c577b50409c3dd.jpg?imageMogr2/thumbnail/96x" />
-                      </div>
-                      <p className="box-name">423.8K FOLLOWERS</p>
+                    <div className="box-name">
+                      <i className="icon-price-tags"></i>
+                      俱乐部课程
                     </div>
-                    <div className="box-right">
-                      <div className="box-button">
-                        <i className="icon-price-tag"></i>
-                      </div>
+                    <div className="box-arrow">
+                      <i className="icon-i_arrow10_12"></i>
+                    </div>
+                  </div>
+                  <div className="box-section">
+                    <div className="box-name">
+                      <i className="icon-clock2"></i>
+                      私人教练
+                    </div>
+                    <div className="box-arrow">
+                      <i className="icon-i_arrow10_12"></i>
+                    </div>
+                  </div>
+                  <div className="box-section">
+                    <div className="box-name">
+                      <i className="icon-credit-card"></i>
+                      在线售卡
+                    </div>
+                    <div className="box-arrow">
+                      <i className="icon-i_arrow10_12"></i>
                     </div>
                   </div>
                 </section>
               </section>
-              <section className="show">
-                <div className="list">
-                  <div className="item">
-                    <div className="item-bg"></div>
-                    <div className="item-content">
-                      <div className="item-left">
-                        <div className="content-tips">FEATURED</div>
-                        <div className="content-title">Art & Design</div>
-                      </div>
-                      <div className="item-right"></div>
-                    </div>
-                  </div>
+              <section className="show" onTouchStart={ e => this.handleTouchStart(e)} onTouchEnd={ e => this.handleTouchEnd(e)}>
+                <div className="list" style={listStyle}>
+                  {
+                    userInfo.courseList.map( (item, i) => {
+                      return (
+                        <div className="item" key={i}>
+                          <div className="item-bg" style={{backgroundImage: `url(${item.course_cover})`}}></div>
+                          <div className="item-content">
+                            <div className="item-left">
+                              <div className="content-title">{item.course_name}</div>
+                              <div className="content-tips">{item.course_time} {item.course_date}</div>
+                            </div>
+                            <div className="item-right"></div>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
                 </div>
               </section>
             </article>
