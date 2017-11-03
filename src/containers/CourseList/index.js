@@ -133,7 +133,7 @@ export default class CourseList extends React.Component {
                 }
                 </div>
               </div>
-              <div className="calendar-date">October 30th</div>
+              <div className="calendar-date">{courseList[currentDate].date}</div>
             </section>
             <section className="course-content">
               <section className="course-list">
