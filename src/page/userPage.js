@@ -11,6 +11,7 @@ import '../style/style.less'
 
 import UserInfo from '../containers/UserInfo'
 import CourseList from '../containers/CourseList'
+import UserDestine from '../containers/UserDestine'
 
 export default class App extends React.Component {
 
@@ -34,6 +35,7 @@ export default class App extends React.Component {
                           <ReactChildrenMap key={location.pathname}>
                               <Route location={location} exact path="/" component={UserInfo} />
                               <Route location={location} exact path="/courseList" component={CourseList} />
+                              <Route location={location} exact path="/destine" component={UserDestine} />
                           </ReactChildrenMap>
                       </CSSTransitionGroup>
                   )
