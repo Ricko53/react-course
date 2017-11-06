@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
+import classnames from 'classnames'
 
 import './fakeModel.less'
 
@@ -63,7 +64,7 @@ export default class FakeModel extends React.Component {
         }
 
         return(
-          <section className={close ? "fake-layer close-transition" : "fake-layer"}>
+          <section className={classnames('fake-layer', {'close-transition': close})}>
             <Motion defaultStyle={coverStyle}  style={coverSpring}>
               {
                 ({top, left, height, width}) => <div className="fake-cover" style={{

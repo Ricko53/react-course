@@ -1,0 +1,35 @@
+.destine-detail-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+
+  .detail-cover {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 3;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px -12px rgba(0,0,0,.42), 0 4px 25px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+  }
+
+  .detail-box {
+    position: absolute;
+    background: #fff;
+    border-radius: 8px;
+    z-index: 2;
+    box-shadow: 0 2px 11px 0 rgba(0,0,0,0.11);
+  }
+
+  .destine-detail-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}

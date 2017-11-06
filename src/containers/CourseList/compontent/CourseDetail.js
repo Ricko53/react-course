@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import './courseDetail.less'
 
@@ -22,7 +23,7 @@ export default class FakeModel extends React.Component {
       }
 
       return(
-        <section className={showDetail ? 'detail-layer show-Detail' : 'detail-layer'}>
+        <section className={classnames('detail-layer', {'show-Detail': showDetail})}>
           <section className="detail-header" style={bgStyle}>
             <div className="header-content">
               <h1 className="detail-title">邹市明拳击燃脂</h1>

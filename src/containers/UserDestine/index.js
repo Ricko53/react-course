@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import './index.less'
 
+import DetailDestine from './compontent/DetailDestine.js'
+
 import mokeData from './mokeData.js'
 
 let winWidth = window.innerWidth
@@ -15,8 +17,13 @@ export default class UserPage extends React.Component {
     //常用来绑定自定义函数，切记不要在这里或者组件的任何位置setState，state全部在reducer初始化，相信对开发的后期很有帮助
     //例子：this.myfunction = this.myfunction.bind(this)
 
+    this.handelClickFunc = this.handelClickFunc.bind(this)
+    this.closeDetailFunc = this.closeDetailFunc.bind(this)
+
     this.state = {
-      userInfo: {}
+      userInfo: {},
+      showDetail: false,
+      baseData: {},
     }
   }
 
@@ -26,9 +33,38 @@ export default class UserPage extends React.Component {
     })
   }
 
+  handelClickFunc(e) {
+
+    let curentDom = e.target
+    let coverDom = curentDom.firstElementChild
+    let image = coverDom.style.backgroundImage
+    let coverClient = coverDom.getBoundingClientRect()
+    let boxClient = curentDom.getBoundingClientRect()
+
+    document.body.style.overflow = "hidden"
+
+    this.setState({
+      showDetail: true,
+      baseData: {
+        coverImage: image,
+        coverClient: coverClient,
+        boxClient: boxClient,
+      }
+    })
+  }
+
+  closeDetailFunc() {
+    this.setState({
+      showDetail: false,
+    })
+    
+    document.body.style.overflow = "auto"        
+
+  }
+
   render() {
 
-    const { userInfo } = this.state
+    const { showDetail, userInfo, baseData } = this.state
 
     return(
       <article className="destine-page">
@@ -52,7 +88,7 @@ export default class UserPage extends React.Component {
             {
               userInfo.courseList.map((item, i) => {
                 return (
-                  <section className="destine-item" key={item.course_id}>
+                  <section className="destine-item" key={item.course_id} onClick={e => this.handelClickFunc(e)}>
                     <div className="course-cover" style={{backgroundImage: `url(${item.course_cover})`}}></div>
                     <div className="course-info">
                       <div className="course-name">{item.course_name}</div>
@@ -64,7 +100,7 @@ export default class UserPage extends React.Component {
             }
           </div>
         </section>
-
+        <DetailDestine show={showDetail} info={baseData} closeDetail={this.closeDetailFunc} ></DetailDestine>
       </article>
     )
   }
