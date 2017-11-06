@@ -16,13 +16,45 @@ export default class FakeModel extends React.Component {
 
       this.closeDetailPage = this.closeDetailPage.bind(this)
       this.handleMotionEnd = this.handleMotionEnd.bind(this)
+      this.updateDetail = this.updateDetail.bind(this)
 
       this.state = {
-        close: false
+        close: false,
+        courseData: {},
       }
     }
 
     componentWillMount() {
+
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   return true
+    // }
+
+    componentWillReceiveProps(nextProps) {
+      if(nextProps.show) {
+        this.updateDetail()
+      }
+    }
+
+    updateDetail() {
+      // setTimeout 是为了模拟 http 请求
+      setTimeout(() => {
+        this.setState({
+          courseData: {
+            course_id: '21',
+            course_name: '有氧操 · 活力燃脂',
+            course_date: '星期二 9：00 - 11：30',
+            course_desc: '拳击，燃脂效率最高的运动之一。<br/>拳击，既是体育运动，也是一种燃脂效率极高的健身方式。拳击动作讲究力量的传导，每一次出拳都是蹬地、转胯、送肩发力，其实它是一项全身性的综合运动。正因如此，拳击训练才会有如此大的消耗',
+            course_coach: {
+              name: 'Humble',
+              desc: 'Kendrick Lamar on DAMN.',
+              thumb: 'http://static1.keepcdn.com/avatar/2017/10/26/17/644c740dac007c38a3134f84950a4ba3fc035ceb.jpg?imageMogr2/thumbnail/96x'
+            }
+          }
+        })
+      }, 300)
     }
 
     handleMotionEnd() {
@@ -34,14 +66,15 @@ export default class FakeModel extends React.Component {
 
     closeDetailPage() {
       this.setState({
-        close: true
+        close: true,
+        courseData: {},
       })
     }
 
     render() {
 
       let { show, info } = this.props
-      let { close } = this.state
+      let { close, courseData } = this.state
 
       if(show) {
 
@@ -106,6 +139,12 @@ export default class FakeModel extends React.Component {
                 }}></div>
               }
             </Motion>
+            <div className={classnames("detail-contnet", {"show-content": courseData.course_name})} style={{top: detailPageCover.top + detailPageCover.h}}>
+              <div className="dt-title">{courseData.course_name}</div>
+              <div className="dt-date"><i className="icon-clock"></i>{courseData.course_date}</div>
+              <p className="dt-desc">{courseData.course_desc}</p>
+              <div className="dt-button">取消预约</div>
+            </div>
             <div onClick={this.closeDetailPage} className="destine-detail-bg"></div>
           </section>
         )
