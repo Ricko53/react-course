@@ -70,7 +70,7 @@ class WxService {
     return new Promise((resolve, reject) => {
       // 请求微信获取code，code用于换取access_token
       const codeLink = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WxConfig.appId +
-          '&redirect_uri=' + encodeURIComponent(protocol + '://' + host + global.config.locals.publicPath + '/wx/auth2?dest=' + encodeURIComponent(dest)) +
+          '&redirect_uri=' + encodeURIComponent(protocol + '://' + host + '/wx/auth2?dest=' + encodeURIComponent(dest)) +
           '&response_type=code&scope=' + scope + '&state=STATE#wechat_redirect';
 
       if(openId) {
@@ -129,10 +129,15 @@ class WxService {
     // logger.trace('[auth2] start. dest: ' + dest + ', code: ' + code + ', state: ' + state);
 
     return new Promise((resolve, reject) => {
+      console.log('code' + code)
+
       WxApi.getAuthAccessToken(WxConfig.appId, WxConfig.secret, code)
+
         .then(data => {
           // logger.trace('[auth2] getAuthAccessToken ok.');
           // logger.trace(data);
+
+          console.log('access_token' + data)
 
           // 最后一步，获取用户信息
           WxApi.getUserInfo(data.access_token, data.openid)
@@ -158,6 +163,9 @@ class WxService {
             .catch(error => {
               // logger.warn('[auth2] getUserInfo failed.');
               // logger.warn(error);
+
+              console.log('access_token error ' + error)
+
 
               let paramsStr = Querystring.stringify({userinfo:'{"error": "get wx getUserInfo fail", "errcode": ' + error.errcode + '}'}),
                   op = dest.indexOf('?') >= 0 ? '&' : '?';
@@ -185,6 +193,8 @@ class WxService {
           // logger.warn('[auth2] getAuthAccessToken failed.');
           // logger.warn(error);
 
+          console.log('error ' + error)
+
           //构造回调url
           let paramsStr = Querystring.stringify({userinfo:'{"error": "get wx access_token fail", "errcode": ' + error.errmsg + '}'}),
               op = dest.indexOf('?') >= 0 ? '&' : '?';
@@ -194,8 +204,7 @@ class WxService {
     });
   }
 
-
-
-
 }
+
+module.exports = WxService;
 
