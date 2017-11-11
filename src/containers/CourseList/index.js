@@ -141,6 +141,7 @@ export default class CourseList extends React.Component {
                   transitionName="course"
                   transitionLeave={false}
                   transitionEnterTimeout={800}
+                  transitionLeaveTimeout={400}
                 >
                 {
                   curList.map((item, i) => {
