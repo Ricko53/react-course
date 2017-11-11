@@ -7,8 +7,8 @@ const BaseController = require('./BaseController')
 class ApiController extends BaseController {
 
   // 测试
-  static async test() {
-    const order = this.query.order;
+  static async test(ctx, next) {
+    const order = ctx.query.order;
     // logger.info('test order: ' + order);
 
     switch(order) {
@@ -24,7 +24,7 @@ class ApiController extends BaseController {
         // this.body = keys;
         break;
       default: 
-        this.body = 'success'
+        ctx.body = 'success'
         break;
     }
   }

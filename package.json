@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
     "core-js": "^2.5.1",
@@ -64,6 +65,9 @@
     "history": "^4.6.1",
     "http-proxy-middleware": "^0.17.4",
     "jroll": "^2.5.0",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",
     "prop-types": "^15.6.0",

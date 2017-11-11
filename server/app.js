@@ -11,7 +11,7 @@ const bodyParser = require('koa-bodyparser')
 const app = new Koa()
 
 const config = require('./conf/config')
-const router = require('./routes/router'),
+const router = require('./routes/router')
 
 global.config = config
  
