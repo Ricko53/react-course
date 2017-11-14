@@ -1,6 +1,7 @@
 /**
  * redis
  * Created by lsy on 2015/12/15.
+ * Update by jin on 2017/11/14.
  */
 
 'use strict';

@@ -1,27 +1,33 @@
 /**
  * log4js
  * Created by Chenjr on 2015/12/17.
+ * Update by jin on 2017/11/14.
  */
 
 'use strict';
 
-var Path = require('path');
-var log4js = require('log4js');
-var logFile = Path.join(__dirname, '../../log/debug.log');
-var config = require('../../conf/config.js');
+const Path = require('path');
+const log4js = require('log4js');
+const logFile = Path.join(__dirname, '../../log/debug.log');
+const config = require('../../conf/config.js');
 
 log4js.configure({
-    appenders: [
-        { type: 'console' }, //控制台输出
-        {
+    appenders: {
+        out: { type: 'console' },
+        app: { 
             type: "dateFile",
             filename: logFile,
             pattern: "-yyyy-MM-dd",
             alwaysIncludePattern: false,
             maxLogSize: 1024
         }
-    ],
-    replaceConsole: true
+    },
+    categories: {
+        default: { 
+            appenders: [ 'out', 'app' ], 
+            level: config.log4js.level // 'ALL' < 'TRACE' < 'DEBUG' < 'INFO' < 'WARN' < 'ERROR' < 'FATAL' < 'MARK'
+        }
+    }
 });
 
 /**
@@ -31,8 +37,5 @@ log4js.configure({
  */
 exports.logger = function(type){
     var logger = log4js.getLogger(type);
-    logger.setLevel(config.log4js.level); // 'ALL' < 'TRACE' < 'DEBUG' < 'INFO' < 'WARN' < 'ERROR' < 'FATAL' < 'MARK'
     return logger;
 };
-
-console.info('config.log4js.level:' + config.log4js.level);
