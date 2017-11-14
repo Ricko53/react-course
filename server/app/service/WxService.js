@@ -3,7 +3,7 @@ const Querystring = require('querystring')
 const WxApi = require('../common/WxApi')
 // const Redis = require('../utils/redis')
 // const logger = require('../utils/logger').logger('WxService')
-// const ResponseJson = require('../constant/ResponseJson')
+const ResponseJson = require('../constant/ResponseJson')
 const WxConfig = require('../constant/WxConfig')
 
 class WxService {

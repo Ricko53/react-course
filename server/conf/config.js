@@ -4,13 +4,17 @@ const config = {
   "name": 'carzy-coach',
   //端口号配置
   "port": 3000,
+  // log 等级
+  "log4js": {
+    "level": "TRACE"
+  },
   //log所在的目录
   secret: 'ilovera',
   // redis 注入
-  redis: {
+  redis: [{
     port: 6379,
     host: '127.0.0.1',
-  },
+  }],
   // 微信 ID
   wechat: {
     appId: 'wx74eb07a4a081df00',

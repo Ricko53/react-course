@@ -140,7 +140,7 @@ export default class CourseList extends React.Component {
                 <CSSTransitionGroup 
                   transitionName="course"
                   transitionLeave={false}
-                  transitionEnterTimeout={800}
+                  transitionEnterTimeout={600}
                   transitionLeaveTimeout={400}
                 >
                 {
