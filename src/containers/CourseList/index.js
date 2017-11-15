@@ -47,6 +47,7 @@ export default class CourseList extends React.Component {
     }
 
     componentWillMount() {
+      console.log('course page')
       this.setState({
         courseList: mokeDate.data.dateList
       })
@@ -140,8 +141,8 @@ export default class CourseList extends React.Component {
                 <CSSTransitionGroup 
                   transitionName="course"
                   transitionLeave={false}
-                  transitionEnterTimeout={600}
-                  transitionLeaveTimeout={400}
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={100}
                 >
                 {
                   curList.map((item, i) => {

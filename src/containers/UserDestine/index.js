@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import './index.less'
 
@@ -28,6 +29,7 @@ export default class UserPage extends React.Component {
   }
 
   componentWillMount() {
+    console.log('destine page')
     this.setState({
       userInfo: mokeData.data
     })
@@ -79,9 +81,9 @@ export default class UserPage extends React.Component {
             </div>
             <div className="box-option"></div>
           </div>
-          <div className="info-button">
+          <Link to="/" className="info-button">
             <i className="icon-user"></i>
-          </div>
+          </Link>
         </section>
         <section className="destine-content">
           <div className="destine-list">

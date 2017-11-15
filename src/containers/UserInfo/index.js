@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import './index.less'
 
@@ -27,6 +28,7 @@ export default class UserPage extends React.Component {
     }
 
     componentWillMount() {
+      console.log('user info page')
       this.setState({
         userInfo: mokeData.data
       })
@@ -87,7 +89,7 @@ export default class UserPage extends React.Component {
               </section>
               <section className="content">
                 <section className="content-box">
-                  <div className="box-section">
+                  <Link to="/destine" className="box-section">
                     <div className="box-name">
                       <i className="icon-price-tag"></i>
                       我的预约
@@ -95,8 +97,8 @@ export default class UserPage extends React.Component {
                     <div className="box-arrow">
                       <i className="icon-i_arrow10_12"></i>
                     </div>
-                  </div>
-                  <div className="box-section">
+                  </Link>
+                  <Link to="/courseList" className="box-section">
                     <div className="box-name">
                       <i className="icon-price-tags"></i>
                       俱乐部课程
@@ -104,8 +106,8 @@ export default class UserPage extends React.Component {
                     <div className="box-arrow">
                       <i className="icon-i_arrow10_12"></i>
                     </div>
-                  </div>
-                  <div className="box-section">
+                  </Link>
+                  <Link to="/" className="box-section">
                     <div className="box-name">
                       <i className="icon-clock2"></i>
                       私人教练
@@ -113,8 +115,8 @@ export default class UserPage extends React.Component {
                     <div className="box-arrow">
                       <i className="icon-i_arrow10_12"></i>
                     </div>
-                  </div>
-                  <div className="box-section">
+                  </Link>
+                  <Link to="/" className="box-section">
                     <div className="box-name">
                       <i className="icon-credit-card"></i>
                       在线售卡
@@ -122,7 +124,7 @@ export default class UserPage extends React.Component {
                     <div className="box-arrow">
                       <i className="icon-i_arrow10_12"></i>
                     </div>
-                  </div>
+                  </Link>
                 </section>
               </section>
               <section className="show" onTouchStart={ e => this.handleTouchStart(e)} onTouchEnd={ e => this.handleTouchEnd(e)}>

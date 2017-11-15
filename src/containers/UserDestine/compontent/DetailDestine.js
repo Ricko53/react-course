@@ -69,6 +69,10 @@ export default class FakeModel extends React.Component {
         close: true,
         courseData: {},
       })
+
+      setTimeout(() => {
+        this.handleMotionEnd()
+      }, 300)
     }
 
     render() {
@@ -129,7 +133,7 @@ export default class FakeModel extends React.Component {
                 }}></div>
               }
             </Motion>
-            <Motion defaultStyle={infoStyle}  style={infoSpring} onRest={this.handleMotionEnd}>
+            <Motion defaultStyle={infoStyle}  style={infoSpring} onRest={()=>{}}>
               {
                 ({top, left, height, width}) => <div className="detail-box" style={{
                   top,
