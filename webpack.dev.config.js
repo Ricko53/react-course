@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const AssetsPlugin = require('assets-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const pageConfig = require('./src/entry.js')
 
@@ -19,6 +18,8 @@ entries.app = ['./entries/index.js']
 
 entries.vendor = ['react', 'react-dom']
 
+entries.app.unshift('react-hot-loader/patch', `webpack-dev-server/client?http://localhost:3000`, 'webpack/hot/only-dev-server')
+
 var plugins = [
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
@@ -28,48 +29,23 @@ var plugins = [
         'process.env':{
             'NODE_ENV': JSON.stringify(nodeEnv)
         }
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
 ]
-
-if (isPro) {
-  plugins.push(
-      new ExtractTextPlugin({
-          filename: 'styles.css'
-      }),
-      new webpack.LoaderOptionsPlugin({
-          minimize: true,
-          debug: false
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true,
-          comments: false,
-          ie8: true
-      }),
-      new AssetsPlugin({
-        filename: '/build/assets.json'
-      })
-  )
-} else {
-  // entries.app.unshift('react-hot-loader/patch', `webpack-dev-server/client?http://localhost:3000`, 'webpack/hot/only-dev-server')
-  entries.app.unshift('react-hot-loader/patch')
-  plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
-  )
-}
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     devtool: isPro ? 'source-map' : 'inline-source-map',
-    // devServer: {
-    //   contentBase: path.join(__dirname, "public"),
-    //   compress: true,
-    //   port: 3000,
-    //   host: "0.0.0.0",
-    //   hot: true,
-    //   inline: true
-    // },
+    devServer: {
+      contentBase: path.join(__dirname, "public"),
+      compress: true,
+      port: 3000,
+      host: "0.0.0.0",
+      hot: true,
+      inline: true
+    },
     entry: entries,
     output: {
         // filename: '[name].[chunkhash].js',

@@ -8,6 +8,8 @@ const config = {
   "log4js": {
     "level": "TRACE"
   },
+  // xtpl page path
+  views: path.join(__dirname, '../app/views/'),
   //log所在的目录
   secret: 'ilovera',
   // redis 注入

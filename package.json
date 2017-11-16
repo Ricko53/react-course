@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "export NODE_ENV=development && webpack-dev-server --config webpack.config.js --progress --inline --colors --history-api-fallback",
+    "start": "export NODE_ENV=development && webpack-dev-server --config webpack.dev.config.js --progress --inline --colors --history-api-fallback",
+    "dev": "export NODE_ENV=development && node server/app.js",
     "build": "export NODE_ENV=production && webpack --progress --hide-modules --config webpack.config.js"
   },
   "repository": {
@@ -44,6 +45,7 @@
     "image-webpack-loader": "^3.1.0",
     "jest": "^19.0.2",
     "jest-runtime": "^19.0.2",
+    "koa-webpack-middleware": "^1.0.7",
     "less": "^2.7.1",
     "less-loader": "^2.2.2",
     "postcss-loader": "^0.7.0",
@@ -68,6 +70,7 @@
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
+    "koa-xtpl": "^2.1.1",
     "log4js": "^2.3.12",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",
