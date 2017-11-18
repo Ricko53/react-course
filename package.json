@@ -67,6 +67,7 @@
     "history": "^4.6.1",
     "http-proxy-middleware": "^0.17.4",
     "jroll": "^2.5.0",
+    "jsonwebtoken": "^8.1.0",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",

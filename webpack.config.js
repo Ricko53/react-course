@@ -10,14 +10,10 @@ const isPro = nodeEnv === 'production'
 
 let entries = {}
 
-// for(let key in pageConfig) {
-//   let info = pageConfig[key]
-//   entries[info.name] = info.dist
-// }
-
-entries.app = ['./entries/index.js']
-
-entries.vendor = ['react', 'react-dom']
+for(let key in pageConfig) {
+  let info = pageConfig[key]
+  entries[info.name] = [info.dist]
+}
 
 var plugins = [
     new webpack.optimize.CommonsChunkPlugin({
@@ -51,13 +47,19 @@ if (isPro) {
   )
 } else {
   // entries.app.unshift('react-hot-loader/patch', `webpack-dev-server/client?http://localhost:3000`, 'webpack/hot/only-dev-server')
-  entries.app.unshift('react-hot-loader/patch')
+
+  for (let key in entries) {
+    entries[key].unshift('react-hot-loader/patch')
+  }
+
   plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
   )
 }
+
+entries.vendor = ['react', 'react-dom']
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),

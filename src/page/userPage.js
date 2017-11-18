@@ -5,7 +5,6 @@ import ReactChildrenMap from '../containers/Commons/ReactChildrenMap'
 import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 
-
 import '../style/main.less'
 import '../style/style.less'
 

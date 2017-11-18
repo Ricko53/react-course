@@ -1,5 +1,7 @@
 'use strict';
 const Querystring = require('querystring')
+const jwt = require('jsonwebtoken')
+
 const WxApi = require('../common/WxApi')
 // const Redis = require('../utils/redis')
 // const logger = require('../utils/logger').logger('WxService')
@@ -147,16 +149,18 @@ class WxService {
 
               console.log(info)
 
+              checkOpenIdAndSign(info, ctx)
+
               let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
                   op = dest.indexOf('?') >= 0 ? '&' : '?';
 
               // 利用cookie保存用户openId
-              try {
-                ctx.cookies.set(WxConfig.cookieOpenId, info.openid);
-                // logger.trace('[auth2] set cookie ok. ' + WxConfig.cookieOpenId + '=' + info.openid);
-              } catch(e) {
-                // logger.error('[auth2] set cookie failed. e:' + e);
-              }
+              // try {
+              //   ctx.cookies.set(WxConfig.cookieOpenId, info.openid);
+              //   logger.trace('[auth2] set cookie ok. ' + WxConfig.cookieOpenId + '=' + info.openid);
+              // } catch(e) {
+              //   logger.error('[auth2] set cookie failed. e:' + e);
+              // }
 
               resolve(dest + op + paramsStr);
             })
@@ -202,6 +206,22 @@ class WxService {
           resolve(dest + op + paramsStr);
         });
     });
+  }
+
+  static checkOpenIdAndSign (uinfo, ctx) {
+    let info = {
+      userId: '10001',
+    }
+
+    let token = jwt.sign(info, global.config.secret, {
+      expiresIn: '10h'
+    })
+
+    try {
+      ctx.cookies.set('token', token)
+    } catch(e) {
+      // logger.error('[auth2] set cookie failed. e:' + e);
+    }
   }
 
 }

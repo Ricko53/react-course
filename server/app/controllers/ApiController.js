@@ -1,33 +1,73 @@
 'use strict';
 
+const jwt = require('jsonwebtoken')
+
 const BaseController = require('./BaseController')
 // const logger = require('../utils/logger').logger('ApiController')
-// const Redis = require('../utils/redis')
+const ResponseJson = require('../constant/ResponseJson')
 
 class ApiController extends BaseController {
 
   // 测试
   static async test(ctx, next) {
     const order = ctx.query.order;
-    // logger.info('test order: ' + order);
 
     switch(order) {
-      case 'redis_clear': 
-        // var keys = await Redis.keys('wechat_jssdk_server_*');
-        // logger.trace(keys);
-        // for(let i = 0; i < keys.length; i++) {
-        //   await Redis.del(keys[i]);
-        // }
-        break;
-      case 'redis_keys':
-        // var keys = await Redis.keys('*');
-        // this.body = keys;
+      case 'get_token':
+
+        let info = {
+          userId: '10001',
+        }
+
+        let token = jwt.sign(info, global.config.secret, {
+          expiresIn: '10h'
+        })
+
+        ctx.cookies.set('token', token)
+
+        ctx.body = ResponseJson.formatJson(ResponseJson.code.success, {
+          token: token
+        })
+
         break;
       default: 
-        ctx.body = 'success'
+        ctx.body = ResponseJson.formatJson(ResponseJson.code.success, {})
         break;
     }
+
+    return next
   }
+
+  // 验证 token 中间件
+  static async hasToken(ctx, next) {
+    var token = ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'] || ctx.cookies.get('token')
+
+    if (token) {
+      jwt.verify(token, global.config.secret, function (err, decoded) {
+        if (err) {
+          ctx.body = ResponseJson.formatJson(ResponseJson.code.tokenExpired)
+
+          return next        
+        } else {
+          ctx.decoded = decoded
+        }
+      })
+    } else {
+      ctx.body = ResponseJson.formatJson(ResponseJson.code.tokenMiss)
+
+      return next
+    }
+
+    await next()
+  }
+
+  static async checkInfo(ctx, next) {
+
+    ctx.body = ResponseJson.formatJson(ResponseJson.code.success, ctx.decoded)
+
+    return next
+  }
+
 }
 
 module.exports = ApiController;

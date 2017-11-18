@@ -8,4 +8,6 @@ const router = new Router({
 
 router.get('/test', ApiController.test);
 
+router.get('/checkInfo', ApiController.hasToken, ApiController.checkInfo);
+
 module.exports = router;

@@ -1,13 +1,11 @@
 /**
  * 统一接口返回规范
  * {
- *      state: {
- *          code: 2000000,
- *          msg: "ok"
- *      },
- *      data: xxxx // 返回的数据放这里
+ *   code: 2000000,
+ *   msg: "ok"
+ *   data: xxxx // 返回的数据放这里
  * }
- * Created by Chenjr on 2016/1/21.
+ * Created by jin on 2017/11/18.
  */
 
 var logger = require('../utils/logger').logger('ResponseJson');
@@ -17,15 +15,19 @@ module.exports = (function(){
 
     // state.code返回码枚举类型
     var _code = {
-        ok: 200,
+        success: 200,
         parameterError: 400, // 参数错误
-        internalError: 500 // 内部出错
+        internalError: 500,  // 内部出错
+        tokenExpired: 701,   // token 过期
+        tokenMiss: 702,     // 需要token
     };
     // state.msg返回码对应的提示信息
     var _msg = [];
-    _msg[_code.ok] = 'ok';
+    _msg[_code.success] = 'success';
     _msg[_code.internalError] = 'Internal Error';
     _msg[_code.parameterError] = 'Parameter Error';
+    _msg[_code.tokenExpired] = 'Token Expired';
+    _msg[_code.tokenMiss] = 'Token Miss';
 
     /**
      * 格式化返回JSON字符串
@@ -36,10 +38,8 @@ module.exports = (function(){
         code = code || _code.ok;
 
         var json = {
-            state: {
-                code: code,
-                msg: _msg[code]
-            },
+            code: code,
+            msg: _msg[code],
             data: data || ''
         };
         var jsonStr = '';
@@ -60,10 +60,8 @@ module.exports = (function(){
         code = code || _code.ok;
         
         var json = {
-            state: {
-                code: code,
-                msg: _msg[code]
-            },
+            code: code,
+            msg: _msg[code],
             data: data || ''
         };
         return json;

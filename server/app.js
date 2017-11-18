@@ -40,7 +40,7 @@ if (devEvn) {
   app.use(hotMiddleware(clientCompiler))
   app.use(async (ctx,next) => {
     ctx.assets = assets([
-      'app',
+      'userPage',
       'vendor',
     ])
     await next()

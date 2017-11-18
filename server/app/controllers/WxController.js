@@ -1,12 +1,12 @@
 'use strict';
 
-const BaseController = require('./BaseController')
+// const BaseController = require('./BaseController')
 // const logger = require('../utils/logger').logger('WxController')
 const Util = require('../utils/util')
 const WxConfig = require('../constant/WxConfig')
 const WxService = require('../service/WxService')
 
-class WxController extends BaseController {
+class WxController {
 
   // 公众号服务器认证
     static async service(ctx, next) {
