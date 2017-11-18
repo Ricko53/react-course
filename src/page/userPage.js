@@ -12,6 +12,7 @@ import '../style/style.less'
 import UserInfo from '../containers/UserInfo'
 import CourseList from '../containers/CourseList'
 import UserDestine from '../containers/UserDestine'
+import CourseDetail from '../containers/CourseDetail'
 
 export default class App extends React.Component {
 
@@ -26,7 +27,7 @@ export default class App extends React.Component {
               <Route render={({ location }) => {
                   return(
                       <CSSTransitionGroup
-                          transitionName={'normal'}
+                          transitionName='page'
                           transitionEnter={true}
                           transitionLeave={true}
                           transitionEnterTimeout={400}
@@ -35,6 +36,7 @@ export default class App extends React.Component {
                           <ReactChildrenMap key={location.pathname}>
                               <Route location={location} exact path="/" component={UserInfo} />
                               <Route location={location} exact path="/courseList" component={CourseList} />
+                              <Route location={location} exact path="/courseList/:cid" component={CourseDetail} />
                               <Route location={location} exact path="/destine" component={UserDestine} />
                           </ReactChildrenMap>
                       </CSSTransitionGroup>

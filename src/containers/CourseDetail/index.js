@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import './courseDetail.less'
+import './index.less'
 
 export default class courseDetail extends React.Component {
 
@@ -16,14 +15,14 @@ export default class courseDetail extends React.Component {
 
     render() {
 
-      let { showDetail, info, closeDetail } = this.props
+      // let { showDetail, info, closeDetail } = this.props
 
       let bgStyle = {
-        backgroundImage: info.coverImage,
+        backgroundImage: 'url(https://static1.keepcdn.com/misc/2016/06/02/23/554474e4c9000000.jpg)' //info.coverImage,
       }
 
       return(
-        <section className={classnames('detail-layer', {'show-Detail': showDetail})}>
+        <section className="detail-layer show-Detail">
           <section className="detail-header" style={bgStyle}>
             <div className="header-content">
               <h1 className="detail-title">邹市明拳击燃脂</h1>
@@ -55,7 +54,7 @@ export default class courseDetail extends React.Component {
                   <p className="box-name">已有 4 人参加课程</p>
                 </div>
                 <div className="box-right">
-                  <div className="box-button" onClick={closeDetail}>
+                  <div className="box-button">
                     <i className="icon-price-tag"></i>
                   </div>
                 </div>
@@ -71,11 +70,4 @@ export default class courseDetail extends React.Component {
         </section>
       )
     }
-}
-
-courseDetail.propTypes = {
-  showDetail: PropTypes.bool,
-  info: PropTypes.object,
-  close: PropTypes.bool,
-  closeDetail: PropTypes.func,
 }

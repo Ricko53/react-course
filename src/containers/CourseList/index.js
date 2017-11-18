@@ -46,6 +46,10 @@ export default class CourseList extends React.Component {
         }
     }
 
+    static contextTypes = {
+      router: PropTypes.object.isRequired
+    }
+
     componentWillMount() {
       console.log('course page')
       this.setState({
@@ -94,6 +98,9 @@ export default class CourseList extends React.Component {
          this.setState({
            showDetail: true,
          })
+
+        // this.context.router.history.push('/courseList/1')
+
        }, 500)
     }
 
