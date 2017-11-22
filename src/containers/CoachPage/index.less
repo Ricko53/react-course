@@ -1,0 +1,106 @@
+.coach-page {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+
+  .coach-header {
+    position: relative;
+    height: 15rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      display: block;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .coach-main {
+    position: relative;
+    margin: -5rem 1rem 0;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+
+    .container {
+      padding: 0 1rem 2rem;
+      text-align: center;
+      color: #383838;
+
+      .profile {
+        position: relative;
+        top: -4rem;
+        margin-bottom: -3rem;
+
+        .profile-img {
+          height: 8rem;
+          width: 8rem;
+          border-radius: 50%;
+          box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-name {
+          font-size: 18px;
+
+          .title {
+            margin: 1rem 0 0.5rem; 
+          }
+
+          h6 {
+            font-weight: 300;
+          }
+        }
+      }
+
+      .nav {
+
+        .nav-pills {
+          display: flex;
+          justify-content: center;
+
+          .item {
+            padding: .5rem .8rem;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #555;
+            transition: all .3s;
+            border-radius: 4px;
+
+            i {
+              font-size: 30px;
+              padding: .5rem;
+              display: block;
+            }
+          }
+
+          .active.item {
+            color: #fff;
+            background-color: #DE3164;
+            box-shadow: 0 16px 26px -10px rgb(222, 49, 100, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(156, 39, 176, 0.2);
+          }
+
+        }
+      }
+
+    }
+  }
+
+  .footer {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+    margin-top: 2rem; 
+    line-height: 3rem;
+  }
+
+}

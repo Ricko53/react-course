@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const WxApi = require('../common/WxApi')
 // const Redis = require('../utils/redis')
-// const logger = require('../utils/logger').logger('WxService')
+const logger = require('../utils/logger').logger('WxService')
 const ResponseJson = require('../constant/ResponseJson')
 const WxConfig = require('../constant/WxConfig')
 
@@ -165,8 +165,8 @@ class WxService {
               resolve(dest + op + paramsStr);
             })
             .catch(error => {
-              // logger.warn('[auth2] getUserInfo failed.');
-              // logger.warn(error);
+              logger.warn('[auth2] getUserInfo failed.');
+              logger.warn(error);
 
               console.log('access_token error ' + error)
 
@@ -194,8 +194,8 @@ class WxService {
 
         })
         .catch(error => {
-          // logger.warn('[auth2] getAuthAccessToken failed.');
-          // logger.warn(error);
+          logger.warn('[auth2] getAuthAccessToken failed.');
+          logger.warn(error);
 
           console.log('error ' + error)
 
@@ -220,7 +220,7 @@ class WxService {
     try {
       ctx.cookies.set('token', token)
     } catch(e) {
-      // logger.error('[auth2] set cookie failed. e:' + e);
+      logger.error('[auth2] set cookie failed. e:' + e);
     }
   }
 

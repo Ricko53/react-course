@@ -12,6 +12,7 @@ import UserInfo from '../containers/UserInfo'
 import CourseList from '../containers/CourseList'
 import UserDestine from '../containers/UserDestine'
 import CourseDetail from '../containers/CourseDetail'
+import CoachPage from '../containers/CoachPage'
 
 export default class App extends React.Component {
 
@@ -37,6 +38,7 @@ export default class App extends React.Component {
                               <Route location={location} exact path="/courseList" component={CourseList} />
                               <Route location={location} exact path="/courseList/:cid" component={CourseDetail} />
                               <Route location={location} exact path="/destine" component={UserDestine} />
+                              <Route location={location} exact path="/coach" component={CoachPage} />
                           </ReactChildrenMap>
                       </CSSTransitionGroup>
                   )
