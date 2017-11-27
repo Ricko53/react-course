@@ -10,7 +10,7 @@ import mokeData from './mokeData.js'
 
 let winWidth = window.innerWidth
 
-export default class UserPage extends React.Component {
+export default class UserDestine extends React.Component {
 
   constructor(props) {
     super(props);
@@ -108,7 +108,7 @@ export default class UserPage extends React.Component {
   }
 }
 
-UserPage.propTypes = {
+UserDestine.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 }
