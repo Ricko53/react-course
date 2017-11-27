@@ -14,7 +14,7 @@ let entries = {}
 //   entries[info.name] = info.dist
 // }
 
-entries.app = ['./entries/index.js']
+entries.app = ['./entries/admin.js']
 
 entries.vendor = ['react', 'react-dom']
 
@@ -85,7 +85,7 @@ module.exports = {
                     use: ["css-loader", "less-loader"]
                 }) : ["style-loader", "css-loader", "less-loader"]
         }, {
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+            test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
             use: ['file-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]']
         }]
     }

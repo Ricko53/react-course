@@ -3,4 +3,8 @@ module.exports = {
     name: 'userPage',
     dist: './entries/index.js'
   },
+  adminPage: {
+    name: 'adminPage',
+    dist: './entries/admin.js'
+  },
 }

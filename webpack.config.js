@@ -64,14 +64,6 @@ entries.vendor = ['react', 'react-dom']
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     devtool: isPro ? 'source-map' : 'inline-source-map',
-    // devServer: {
-    //   contentBase: path.join(__dirname, "public"),
-    //   compress: true,
-    //   port: 3000,
-    //   host: "0.0.0.0",
-    //   hot: true,
-    //   inline: true
-    // },
     entry: entries,
     output: {
         // filename: '[name].[chunkhash].js',
@@ -93,9 +85,6 @@ module.exports = {
             "components": path.resolve(__dirname, "src/components"),
             "containers": path.resolve(__dirname, "src/containers"),
             "utils": path.resolve(__dirname, "src/utils"),
-            // 'react': isPro ? 'preact-compat/dist/preact-compat' : 'react', //如果你不想要preact，可以删除这一行
-            // 'react-dom': isPro ? 'preact-compat/dist/preact-compat' : 'react-dom', //如果你不想要preact，可以删除这一行
-            // 'create-react-class': 'preact-compat/lib/create-react-class' //如果你不想要preact，可以删除这一行
         }
     },
 
@@ -111,7 +100,7 @@ module.exports = {
                     use: ["css-loader", "less-loader"]
                 }) : ["style-loader", "css-loader", "less-loader"]
         }, {
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+            test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
             use: ['file-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]']
         }]
     }
