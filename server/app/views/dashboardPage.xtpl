@@ -2,29 +2,17 @@
 <html lang="zh-CN">
 <head>
   <meta http-equiv=”Content-Type” content=”text/html; charset="utf-8">
-  <title>react-redux-webpack</title>
+  <title>carzy-coach-dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="format-detection" content="telephone=no">
 
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
   {{#each(modules)}}
     <link href='{{css}}' rel="stylesheet">
   {{/each}}
-
-  <script type="text/javascript">
-    !function (n, e) {
-      var t = n.documentElement, i = "orientationchange" in window ? "orientationchange" : "resize", d = function () {
-        var n = t.clientWidth;
-        if (n) {
-          var e = 16 * (n / 375);
-          e = e > 20 ? 20 : e;
-          t.style.fontSize = e + "px"
-        }
-      };
-      n.addEventListener && (e.addEventListener(i, d, !1), n.addEventListener("DOMContentLoaded", d, !1))
-    }(document, window);
-  </script>
 </head>
 
 <body>
@@ -32,10 +20,6 @@
   <div id="root"></div>
   
 </body>
-
-<script>
-  document.body.addEventListener('touchstart', function () { });
-</script>
 
 {{#each(modules)}}
   <script src='{{js}}'></script>

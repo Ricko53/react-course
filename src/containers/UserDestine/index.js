@@ -81,7 +81,7 @@ export default class UserDestine extends React.Component {
             </div>
             <div className="box-option"></div>
           </div>
-          <Link to="/" className="info-button">
+          <Link to="/user" className="info-button">
             <i className="icon-user"></i>
           </Link>
         </section>

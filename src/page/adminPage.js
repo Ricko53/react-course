@@ -1,40 +1,34 @@
 import React from 'react'
-import { Route, Router } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import ReactChildrenMap from '../containers/Commons/ReactChildrenMap'
-import createHistory from 'history/createBrowserHistory'
-const history = createHistory()
+// import createHistory from 'history/createBrowserHistory'
+// const history = createHistory()
 
 import '../style/main.less'
 import '../style/style.less'
-import '../assets/css/material-kit.css'
+import '../assets/css/material-dashboard.css'
 
-import LoginPage from '../containers/LoginPage'
+import Dashboard from '../containers/Dashboard'
+// import MessageManage from '../containers/MessageManage'
+// import CourseManage from '../containers/CourseManage'
+// import CoachManage from '../containers/CoachManage'
+// import UserManage from '../containers/UserManage'
 
 export default class App extends React.Component {
 
-    componentDidMount() {
-    }
+  componentDidMount() {
+  }
     
   render() {
-      return (
-          <Router history={history}>
-              <Route render={({ location }) => {
-                  return(
-                      <CSSTransitionGroup
-                          transitionName='page'
-                          transitionEnter={false}
-                          transitionLeave={false}
-                          transitionEnterTimeout={400}
-                          transitionLeaveTimeout={400}
-                      >
-                          <ReactChildrenMap key={location.pathname}>
-                              <Route location={location} exact path="/" component={LoginPage} />
-                          </ReactChildrenMap>
-                      </CSSTransitionGroup>
-                  )
-              }}/>
-          </Router>
-    );
+
+    // <Route path="coach" component={CoachManage}></Route>
+    // <Route path="user" component={UserManage}></Route>
+
+    return (
+      <BrowserRouter>
+        <Route path="/dashboard" component={Dashboard} />
+      </BrowserRouter>
+    )
   }
 }

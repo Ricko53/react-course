@@ -41,6 +41,8 @@ if (devEvn) {
   app.use(async (ctx,next) => {
     ctx.assets = assets([
       'userPage',
+      'loginPage',
+      'adminPage',
       'vendor',
     ])
     await next()

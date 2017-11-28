@@ -34,10 +34,10 @@ export default class App extends React.Component {
                           transitionLeaveTimeout={400}
                       >
                           <ReactChildrenMap key={location.pathname}>
-                              <Route location={location} exact path="/" component={UserInfo} />
-                              <Route location={location} exact path="/courseList" component={CourseList} />
-                              <Route location={location} exact path="/courseList/:cid" component={CourseDetail} />
-                              <Route location={location} exact path="/destine" component={UserDestine} />
+                              <Route location={location} exact path="/user" component={UserInfo} />
+                              <Route location={location} exact path="/user/courseList" component={CourseList} />
+                              <Route location={location} exact path="/user/courseList/:cid" component={CourseDetail} />
+                              <Route location={location} exact path="/user/destine" component={UserDestine} />
                               <Route location={location} exact path="/coach" component={CoachPage} />
                           </ReactChildrenMap>
                       </CSSTransitionGroup>

@@ -89,7 +89,7 @@ export default class UserPage extends React.Component {
               </section>
               <section className="content">
                 <section className="content-box">
-                  <Link to="/destine" className="box-section">
+                  <Link to="/user/destine" className="box-section">
                     <div className="box-name">
                       <i className="icon-price-tag"></i>
                       我的预约
@@ -98,7 +98,7 @@ export default class UserPage extends React.Component {
                       <i className="icon-i_arrow10_12"></i>
                     </div>
                   </Link>
-                  <Link to="/courseList" className="box-section">
+                  <Link to="/user/courseList" className="box-section">
                     <div className="box-name">
                       <i className="icon-price-tags"></i>
                       俱乐部课程

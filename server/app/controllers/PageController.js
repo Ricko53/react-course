@@ -7,6 +7,21 @@ class PageController {
       modules: [ctx.assets.vendor, ctx.assets.userPage],
     })
   }
+
+  static async loginPage(ctx, next) {
+
+    await ctx.render('dashboardPage', {
+      modules: [ctx.assets.vendor, ctx.assets.loginPage],
+    })
+  }
+
+  static async dashboard(ctx, next) {
+
+    await ctx.render('dashboardPage', {
+      modules: [ctx.assets.vendor, ctx.assets.adminPage],
+    })
+  }
+
 }
 
 module.exports = PageController;

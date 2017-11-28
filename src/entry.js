@@ -7,4 +7,8 @@ module.exports = {
     name: 'adminPage',
     dist: './entries/admin.js'
   },
+  loginPage: {
+    name: 'loginPage',
+    dist: './entries/login.js'
+  },
 }
