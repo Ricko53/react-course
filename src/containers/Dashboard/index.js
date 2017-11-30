@@ -24,7 +24,7 @@ export default class Dashboard extends React.Component {
 
     let { match, location } = this.props
 
-    console.log(match, this.props)
+    console.log(this.props)
 
     return(
       <article className="dashboard">
@@ -63,11 +63,22 @@ export default class Dashboard extends React.Component {
           <div className="sidebar-background"></div>
         </div>
         <div className="main-panel">
-          <nav className="navbar"></nav>
-          <Switch>
-            <Route path={`${match.path}`} exact component={MessageManage} />
-            <Route path={`${match.path}/course`} component={CourseManage} />
-          </Switch>
+          <nav className="navbar navbar-transparent">
+            <div className="navbar-header">
+              <a className="navbar-brand"> 数据中心 </a>
+            </div>
+            <div className="collapse navbar-collapse">
+            </div>
+          </nav>
+          <div className="content">
+            <div className="main-container">
+              <Switch>
+                <Route path={`${match.path}`} exact component={MessageManage} />
+                <Route path={`${match.path}/course`} component={CourseManage} />
+              </Switch>
+            </div>
+          </div>
+          <footer className="footer"></footer>
         </div>
       </article>
     )
