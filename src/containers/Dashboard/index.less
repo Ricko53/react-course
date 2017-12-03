@@ -88,14 +88,21 @@
       position: relative;
       display: flex;
 
+
       .col-md-3 {
-        width: 25%;
+        width: calc(~"25% - 30px");
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .col-md-4 {
+        width: calc(~"33.3333% - 30px");
         margin-left: 15px;
         margin-right: 15px;
       }
 
       .col-md-6 {
-        width: 50%;
+        width: calc(~"50% - 30px");
         margin-left: 15px;
         margin-right: 15px;
       }
@@ -103,6 +110,10 @@
 
     .flex-justify-between {
       justify-content: space-between;
+    }
+
+    .flex-wrap {
+      flex-wrap: wrap;
     }
 
     .flex-justify-around {

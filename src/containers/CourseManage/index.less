@@ -1,0 +1,65 @@
+.course-manage {
+  position: relative;
+
+  .course-option {
+    height: 60px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .creat-new {
+    height: 300px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .creat-icon {
+      font-size: 24px;
+      padding: 10px;
+      border: 1px solid #999; 
+    }
+
+    .creat-name {
+      line-height: 30px;
+    }
+  }
+
+  .card {
+    cursor: pointer;
+
+    .card-image {
+      min-height: 180px;
+      background-size: cover;
+      background-position: center; 
+      transition: transform .3s ease;
+    }
+
+    .coach {
+      display: flex;
+      align-items: center;
+
+      .thumb {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
+
+      .name {
+        margin-left: 10px;
+      }
+    }
+
+    &:hover {
+      .card-image {
+        transform: translateY(-20px);
+      }
+    }
+  }
+
+  .creat-course-content {
+    position: relative;
+  }
+}
