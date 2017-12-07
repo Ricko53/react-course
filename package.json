@@ -72,6 +72,7 @@
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
+    "koa-static": "^4.0.2",
     "koa-xtpl": "^2.1.1",
     "log4js": "^2.3.12",
     "material-ui": "^0.19.4",

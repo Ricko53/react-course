@@ -2,6 +2,8 @@
 const Querystring = require('querystring')
 const jwt = require('jsonwebtoken')
 
+const apiConfig = require('../../conf/apiConfig')
+const proxyFetch = require('../utils/proxyFetch')
 const WxApi = require('../common/WxApi')
 // const Redis = require('../utils/redis')
 const logger = require('../utils/logger').logger('WxService')
@@ -208,12 +210,18 @@ class WxService {
     });
   }
 
-  static checkOpenIdAndSign (uinfo, ctx) {
-    let info = {
-      userId: '10001',
+  static async checkOpenIdAndSign (uinfo, ctx) {
+
+    let option = {
+      method: 'POST',
+      body: uinfo
     }
 
-    let token = jwt.sign(info, global.config.secret, {
+    let signInfo = await proxyFetch(apiConfig.USER_CREAT, option)
+
+    console.log(signInfo)
+
+    let token = jwt.sign(signInfo.data, global.config.secret, {
       expiresIn: '10h'
     })
 

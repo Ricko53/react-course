@@ -8,6 +8,7 @@ require('babel-register')
 const xtpl = require('koa-xtpl')
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
+const server = require('koa-static')
 
 const app = new Koa()
 const devEvn = process.env.NODE_ENV === 'development'
@@ -16,7 +17,8 @@ const config = require('./conf/config')
 const router = require('./routes/router')
 
 global.config = config
- 
+
+app.use(server(path.join(__dirname, '../build')))
 app.use(bodyParser())
 
 if (devEvn) {

@@ -27,14 +27,14 @@ let optionsDailySalesChart = {
       },
     }
 
-let  dataCompletedTasksChart = {
+let dataCompletedTasksChart = {
         labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
         series: [
             [230, 750, 450, 300, 280, 240, 200, 190]
         ]
-      }
+    }
 
-let  optionsCompletedTasksChart = {
+let optionsCompletedTasksChart = {
         lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
         }),
@@ -46,7 +46,7 @@ let  optionsCompletedTasksChart = {
             bottom: 0,
             left: 20,
         }
-      }
+    }
 
 let dataEmailsSubscriptionChart = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -54,7 +54,7 @@ let dataEmailsSubscriptionChart = {
         [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
 
     ]
-};
+    }
 let optionsEmailsSubscriptionChart = {
     axisX: {
         showGrid: false
@@ -67,7 +67,7 @@ let optionsEmailsSubscriptionChart = {
         bottom: 0,
         left: 0
     }
-};
+    }
 
 export default class MessageManage extends React.Component {
 

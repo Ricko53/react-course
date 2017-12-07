@@ -30,7 +30,8 @@ var plugins = [
 if (isPro) {
   plugins.push(
       new ExtractTextPlugin({
-          filename: 'styles.css'
+        filename: '[name].css',
+        allChunks: true
       }),
       new webpack.LoaderOptionsPlugin({
           minimize: true,
@@ -69,7 +70,7 @@ module.exports = {
         // filename: '[name].[chunkhash].js',
         filename: '[name].js',
         path: path.join(__dirname, 'build'),
-        publicPath: isPro ? './build/' : '/build/',
+        publicPath: isPro ? '/' : '/build/',
         chunkFilename: '[name].js'
     },
     // BASE_URL是全局的api接口访问地址
@@ -93,26 +94,26 @@ module.exports = {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,
             use: 'babel-loader'
-        // }, {
-        //     test: /\.(less|css)$/,
-        //     use: isPro ? ExtractTextPlugin.extract({
-        //             fallback: 'style-loader',
-        //             use: ["css-loader", "less-loader"]
-        //         }) : ["style-loader", "css-loader", "less-loader"]
-        // }, {
         }, {
-            test: /\.less$/,
+            test: /\.(less|css)$/,
             use: isPro ? ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ["css-loader", "less-loader"]
                 }) : ["style-loader", "css-loader", "less-loader"]
         }, {
-            test: /\.css$/,
-            use: isPro ? ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ["css-loader"]
-                }) : ["style-loader", "css-loader"]
-        }, {
+        // }, {
+        //     test: /\.less$/,
+        //     use: isPro ? ExtractTextPlugin.extract({
+        //             fallback: 'style-loader',
+        //             use: ["css-loader", "less-loader"]
+        //         }) : ["style-loader", "css-loader", "less-loader"]
+        // }, {
+        //     test: /\.css$/,
+        //     use: isPro ? ExtractTextPlugin.extract({
+        //             fallback: 'style-loader',
+        //             use: ["css-loader"]
+        //         }) : ["style-loader", "css-loader"]
+        // }, {
             test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
             use: ['file-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]']
         }]
