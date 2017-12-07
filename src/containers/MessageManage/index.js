@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Chartist from 'chartist'
 
-import ChartistCompontent from '../commons/ChartistCompontent.js'
+import ChartistCompontent from '../Commons/ChartistCompontent.js'
 
 import './index.less'
 

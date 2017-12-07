@@ -76,7 +76,9 @@ export default class ChartistCompontent extends React.Component {
     render() {
        let { id, type } = this.props
 
-       return <div className="ct-chart" id={id}></div>
+       return (
+        <div className="ct-chart" id={id}></div>
+      )
     }
 }
 
