@@ -88,12 +88,12 @@ export default class MessageManage extends React.Component {
         <div className="row-flex">
           <div className="col-md-3">
             <div className="card card-stats">
-              <div className="card-header" data-background-color="orange">
-                <i className="fa fa-calendar"></i>
+              <div className="card-header" data-background-color="purple">
+                <i className="fa fa-user"></i>
               </div>
               <div className="card-content">
-                <p className="category">Used Space</p>
-                <h3 className="title">49/50<small>GB</small></h3>
+                <p className="category">新增用户</p>
+                <h3 className="title">50<small>人</small></h3>
               </div>
               <div className="card-footer">
                 <div className="stats">
@@ -104,12 +104,12 @@ export default class MessageManage extends React.Component {
           </div>
           <div className="col-md-3">
             <div className="card card-stats">
-              <div className="card-header" data-background-color="orange">
-                <i className="fa fa-user"></i>
+              <div className="card-header" data-background-color="red">
+                <i className="fa fa-calendar"></i>
               </div>
               <div className="card-content">
-                <p className="category">Used Space</p>
-                <h3 className="title">49/50<small>GB</small></h3>
+                <p className="category">参与课程人数</p>
+                <h3 className="title">120<small>人</small></h3>
               </div>
               <div className="card-footer">
                 <div className="stats">

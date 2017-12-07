@@ -14,6 +14,22 @@ import './index.less'
 
 import fakeData from './mokeData'
 
+// Date.prototype.Format = function (fmt) {
+//     var o = {
+//         "M+": this.getMonth() + 1, //月份 
+//         "d+": this.getDate(), //日 
+//         "h+": this.getHours(), //小时 
+//         "m+": this.getMinutes(), //分 
+//         "s+": this.getSeconds(), //秒 
+//         "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+//         "S": this.getMilliseconds() //毫秒 
+//     };
+//     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+//     for (var k in o)
+//     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+//     return fmt;
+// }
+
 export default class CourseManage extends React.Component {
 
   constructor(props) {
@@ -25,10 +41,14 @@ export default class CourseManage extends React.Component {
       date: null,
       startTime: null,
       endTime: null,
+      title: '',
+      imgUrl: '',
+      coach: '',
+      content: '',
     }
 
     this.handleCloseDialog = this.handleCloseDialog.bind(this)
-    this.handleChangeTimePicker = this.handleChangeTimePicker.bind(this)
+    this.handleChangeInputValue = this.handleChangeInputValue.bind(this)
   }
 
   componentWillMount() {
@@ -54,15 +74,20 @@ export default class CourseManage extends React.Component {
   }
 
   handleChangeDatePicker = (event, date) => {
-    console.log(event, date)
     this.setState({
       date: date
     })
   }
 
+  handleChangeInputValue(name, val) {
+    this.setState({
+      [name]: date
+    })
+  }
+
   render() {
 
-    let { courseList, open, date, startTime, endTime } = this.state
+    let { courseList, open, date, startTime, endTime, imgUrl, coach, content } = this.state
 
     let sublimeButton = {
       color: '#FFFFFF',
@@ -73,6 +98,10 @@ export default class CourseManage extends React.Component {
       <RaisedButton label="取消" onClick={this.handleCloseDialog} />,
       <RaisedButton label="确认" backgroundColor={"#7b1fa2"} style={sublimeButton} labelColor={'#FFFFFF'} />
     ]
+
+    // floatingLabelText="课程名称"
+    // floatingLabelFocusStyle={{color: '#7b1fa2'}}
+    // underlineFocusStyle={{borderColor: '#7b1fa2'}}
 
     return(
       <section className="course-manage">
@@ -112,6 +141,7 @@ export default class CourseManage extends React.Component {
         </div>
 
         <Dialog
+          title={"创建新课程"}
           actions={dialogButtons}
           modal={false}
           open={open}
@@ -120,35 +150,50 @@ export default class CourseManage extends React.Component {
         >
           <div className="creat-course-content">
             <section className="course-input">
+              <label className="input-name">课程名称</label>
               <TextField
-                floatingLabelText="课程名称"
-                floatingLabelFocusStyle={{color: '#7b1fa2'}}
-                underlineFocusStyle={{borderColor: '#7b1fa2'}}
+                hintText="瑜伽体验课程"
               />
             </section>
             <section className="course-input">
+              <label className="input-name">封面图片</label>
+              <TextField
+                hintText="http://images.cdn.com/image.jpg"
+              />
+            </section>
+            <section className="course-input">
+              <label className="input-name">课程日期</label>
               <DatePicker 
-                hintText="日期" 
+                hintText="2018-1-1" 
                 mode="landscape"
                 value={date}
                 onChange={this.handleChangeDatePicker}
               />
             </section>
             <section className="course-input">
+              <label className="input-name">开始时间</label>
               <TimePicker
                 format="24hr"
-                hintText="开始时间"
+                hintText="7:30"
                 value={startTime}
-                onChange={(event, date) => this.handleChangeTimePicker('startTime', date)}
+                onChange={(event, date) => this.handleChangeInputValue('startTime', date)}
               />
             </section>
             <section className="course-input">
+              <label className="input-name">结束时间</label>
               <TimePicker
                 format="24hr"
-                hintText="结束时间"
+                hintText="9:30"
                 value={endTime}
-                onChange={(event, date) => this.handleChangeTimePicker('endTime', date)}
+                onChange={(event, date) => this.handleChangeInputValue('endTime', date)}
               />
+            </section>
+            <section className="course-input">
+              <label className="input-name">课程教练</label>
+            </section>
+            <section className="course-input course-input-max">
+              <label className="input-name">课程介绍</label>
+              <textarea className="course-textarea"></textarea>
             </section>
           </div>
         </Dialog>

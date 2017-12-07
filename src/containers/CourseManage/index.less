@@ -34,7 +34,7 @@
       min-height: 180px;
       background-size: cover;
       background-position: center; 
-      transition: transform .3s ease;
+      transition: transform .3s cubic-bezier(.34,1.61,.7,1);
     }
 
     .coach {
@@ -58,8 +58,31 @@
       }
     }
   }
+}
 
-  .creat-course-content {
-    position: relative;
+.creat-course-content {
+  position: relative;
+
+  .course-input {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+
+    .input-name {
+      margin-right: 20px; 
+    }
+
+    .course-textarea {
+      padding: 10px;
+      width: 60%;
+      height: 80px;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      resize: none;
+    }
+  }
+
+  .course-input-max {
+    margin-top: 15px;
   }
 }

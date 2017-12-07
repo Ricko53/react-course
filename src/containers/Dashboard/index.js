@@ -5,6 +5,8 @@ import classnames from 'classnames'
 
 import MessageManage from '../MessageManage'
 import CourseManage from '../CourseManage'
+import CoachManage from '../CoachManage'
+import UserManage from '../UserManage'
 
 import './index.less'
 
@@ -23,8 +25,6 @@ export default class Dashboard extends React.Component {
   render() {
 
     let { match, location } = this.props
-
-    console.log(this.props)
 
     return(
       <article className="dashboard">
@@ -75,6 +75,8 @@ export default class Dashboard extends React.Component {
               <Switch>
                 <Route path={`${match.path}`} exact component={MessageManage} />
                 <Route path={`${match.path}/course`} component={CourseManage} />
+                <Route path={`${match.path}/coach`} component={CoachManage} />
+                <Route path={`${match.path}/user`} component={UserManage} />
               </Switch>
             </div>
           </div>
