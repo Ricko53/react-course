@@ -81,7 +81,7 @@
     .content {
       margin-top: 0;
       padding: 15px 15px 30px;
-      min-height: calc(~"100% - 120px");
+      // min-height: calc(~"100% - 120px");
     }
 
     .row-flex {
@@ -123,6 +123,24 @@
 
     .flex-justify-around {
       justify-content: space-around;
+    }
+  }
+
+  .pagination {
+    display: inline-block;
+    li {
+      display: inline;
+
+      a,span {
+        position: relative;
+        float: left;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #d4d4d4;
+        }
+      }
     }
   }
 }

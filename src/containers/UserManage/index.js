@@ -16,10 +16,6 @@ export default class UserManage extends React.Component {
 
   }
 
-  handleOpenDialog() {
-
-  }
-
   render() {
 
     let { UserList } = this.state
@@ -65,16 +61,35 @@ export default class UserManage extends React.Component {
           {
             UserList.map((item, i) => {
               return (
-                <div key={item.id} className="user-item col-md-3">
-                  <img className="user-thumb" src={item.thumb} />
+                <div key={item.id} className="user-item col-md-2">
+                  <img className="user-thumb" src={item.headimgurl} />
                   <div className="user-content">
-                    <h6>{item.name}</h6>
-                    <p>{item.desc}</p>
+                    <h6>{item.nickname}</h6>
+                    <p><i className={item.sex === 1 ? "fa fa-mars" : "fa fa-venus"}></i> {item.city}</p>
                   </div>
                 </div>
               )
             })
           }
+        </div>
+        <div className="user-bottom">
+          <ul className="pagination pagination-primary">
+            <li>
+              <a>{'< prev'}</a>
+            </li>
+            <li className="active">
+              <a>1</a>
+            </li>
+            <li>
+              <a>2</a>
+            </li>
+            <li>
+              <a>3</a>
+            </li>
+            <li>
+              <a>{'next >'}</a>
+            </li>
+          </ul>
         </div>
       </section>
     )
