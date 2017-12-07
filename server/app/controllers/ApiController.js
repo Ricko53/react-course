@@ -1,6 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken')
+const proxyFetch = require('../utils/proxyFetch')
 
 const BaseController = require('./BaseController')
 // const logger = require('../utils/logger').logger('ApiController')
@@ -59,6 +60,23 @@ class ApiController extends BaseController {
     }
 
     await next()
+  }
+
+  // proxy 代理请求
+  static async proxy(ctx, next) {
+
+    // '/api/v1/res' -> '/v1/res'
+    let url = global.config.apiProxy + ctx.request.url.split('/api')[1]
+
+    let option = {
+      method: ctx.request.method,
+    }
+
+    let res = await proxyFetch(url, option)
+
+    ctx.body = res
+
+    return next
   }
 
   static async checkInfo(ctx, next) {
