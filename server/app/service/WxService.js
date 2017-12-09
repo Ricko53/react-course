@@ -72,152 +72,184 @@ class WxService {
     });
   }
 
-  static auth(host, protocol, dest, scope, openId) {
-    return new Promise((resolve, reject) => {
-      // 请求微信获取code，code用于换取access_token
-      const codeLink = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WxConfig.appId +
+  // static auth(host, protocol, dest, scope, openId) {
+  //   return new Promise((resolve, reject) => {
+  //     // 请求微信获取code，code用于换取access_token
+  //     const codeLink = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WxConfig.appId +
+  //         '&redirect_uri=' + encodeURIComponent(protocol + '://' + host + '/wx/auth2?dest=' + encodeURIComponent(dest)) +
+  //         '&response_type=code&scope=' + scope + '&state=STATE#wechat_redirect';
+
+  //     if(openId) {
+
+  //         console.log('have openId' + openId)
+  //         // 已有openId，直接查找返回
+  //         // logger.debug('[auth] has openId:' + openId);
+
+  //         // Redis.get(WxConfig.redisKey.authAccessToken + openId)
+  //         //   .then(strData => {
+  //         //     // logger.trace('[auth] Redis.getAuthAccessToken ok. openId: ' + openId);
+  //         //     // logger.trace(strData);
+
+  //         //       (!strData) && (strData = "{}");
+  //         //       let data = JSON.parse(strData);
+
+  //         //       if(data.access_token) {
+  //         //           // 检测access_token有效性
+  //         //           WxApi.checkAuthAccessToken(data.access_token, data.openid)
+  //         //             .then(ret => {
+  //         //                   WxApi.getUserInfo(data.access_token, data.openid)
+  //         //                     .then(info => {
+  //         //                       // logger.trace('[auth] getUserInfo ok.');
+  //         //                       // logger.trace(info);
+
+  //         //                         let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
+  //         //                             op = dest.indexOf('?') >= 0 ? '&' : '?';
+
+  //         //                         resolve(dest + op + paramsStr);
+  //         //                     });
+  //         //             })
+  //         //             .catch(error => {
+  //         //                 // logger.warn('[auth] checkAuthAccessToken failed.');
+  //         //               resolve(codeLink);
+  //         //             });
+  //         //       } else {
+  //         //           // logger.warn('[auth] access_token empty. openId: ' + openId);
+  //         //           resolve(codeLink);
+  //         //       }
+  //         //   })
+  //         //   .catch(error => {
+  //         //     // logger.warn('[auth] Redis.getAuthAccessToken failed. openId: ' + openId);
+  //         //     // logger.warn(error);
+
+  //         //     resolve(codeLink);
+  //         //   });
+
+  //     } else {
+  //       resolve(codeLink);
+  //     }
+  //   });
+  // }
+
+  // static auth2(dest, code, state, ctx) {
+  //   // logger.trace('[auth2] start. dest: ' + dest + ', code: ' + code + ', state: ' + state);
+
+  //   return new Promise((resolve, reject) => {
+
+  //     WxApi.getAuthAccessToken(WxConfig.appId, WxConfig.secret, code)
+
+  //       .then(data => {
+
+  //         // 最后一步，获取用户信息
+  //         WxApi.getUserInfo(data.access_token, data.openid)
+  //           .then(info => {
+
+  //             console.log(info)
+
+  //             this.checkOpenIdAndSign(info).then( signInfo => {
+
+  //               try {
+  //                 ctx.cookies.set('token', signInfo.token, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
+  //                 ctx.cookies.set('uid', signInfo.uid, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
+  //                 ctx.cookies.set('role', signInfo.role, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
+  //               } catch(e) {
+  //                 logger.error('[auth2] set cookie failed. e:' + e);
+  //               }
+
+  //               // let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
+  //               //     op = dest.indexOf('?') >= 0 ? '&' : '?';
+
+  //               // resolve(dest + op + paramsStr);
+
+  //               resolve(dest)
+
+  //             })
+
+  //             // let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
+  //             //     op = dest.indexOf('?') >= 0 ? '&' : '?';
+
+  //             // 利用cookie保存用户openId
+  //             // try {
+  //             //   ctx.cookies.set(WxConfig.cookieOpenId, info.openid);
+  //             //   logger.trace('[auth2] set cookie ok. ' + WxConfig.cookieOpenId + '=' + info.openid);
+  //             // } catch(e) {
+  //             //   logger.error('[auth2] set cookie failed. e:' + e);
+  //             // }
+
+  //             // resolve(dest + op + paramsStr);
+  //           })
+  //           .catch(error => {
+  //             logger.warn('[auth2] getUserInfo failed.');
+  //             logger.warn(error);
+
+  //             let paramsStr = Querystring.stringify({userinfo:'{"error": "get wx getUserInfo fail", "errcode": ' + error.errcode + '}'}),
+  //                 op = dest.indexOf('?') >= 0 ? '&' : '?';
+
+  //             resolve(dest + op + paramsStr);
+  //           });
+
+  //         // 缓存refresh_token等结果
+  //         // Redis.tryLock('save_' + WxConfig.redisKey.authAccessToken + data.openid, 3000)
+  //         // Redis.tryLock(WxConfig.redisKey.authAccessToken + data.openid, 3000)
+  //         //   .then(lock => {
+  //         //       if(lock) {
+  //         //           this.saveAuthAccessToken(data, WxConfig.refreshTokenExpire)
+  //         //             .then(ret => {
+  //         //               Redis.unlock(lock);
+  //         //             })
+  //         //             .catch(error => {
+  //         //               Redis.unlock(lock);
+  //         //             });
+  //         //       }
+  //         //   });
+
+  //       })
+  //       .catch(error => {
+  //         logger.warn('[auth2] getAuthAccessToken failed.');
+  //         logger.warn(error);
+
+  //         //构造回调url
+  //         let paramsStr = Querystring.stringify({userinfo:'{"error": "get wx access_token fail", "errcode": ' + error.errmsg + '}'}),
+  //             op = dest.indexOf('?') >= 0 ? '&' : '?';
+
+  //         resolve(dest + op + paramsStr);
+  //       });
+  //   });
+  // }
+
+  static async auth(host, protocol, dest, scope) {
+    return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WxConfig.appId +
           '&redirect_uri=' + encodeURIComponent(protocol + '://' + host + '/wx/auth2?dest=' + encodeURIComponent(dest)) +
-          '&response_type=code&scope=' + scope + '&state=STATE#wechat_redirect';
-
-      if(openId) {
-
-          console.log('have openId' + openId)
-          // 已有openId，直接查找返回
-          // logger.debug('[auth] has openId:' + openId);
-
-          // Redis.get(WxConfig.redisKey.authAccessToken + openId)
-          //   .then(strData => {
-          //     // logger.trace('[auth] Redis.getAuthAccessToken ok. openId: ' + openId);
-          //     // logger.trace(strData);
-
-          //       (!strData) && (strData = "{}");
-          //       let data = JSON.parse(strData);
-
-          //       if(data.access_token) {
-          //           // 检测access_token有效性
-          //           WxApi.checkAuthAccessToken(data.access_token, data.openid)
-          //             .then(ret => {
-          //                   WxApi.getUserInfo(data.access_token, data.openid)
-          //                     .then(info => {
-          //                       // logger.trace('[auth] getUserInfo ok.');
-          //                       // logger.trace(info);
-
-          //                         let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
-          //                             op = dest.indexOf('?') >= 0 ? '&' : '?';
-
-          //                         resolve(dest + op + paramsStr);
-          //                     });
-          //             })
-          //             .catch(error => {
-          //                 // logger.warn('[auth] checkAuthAccessToken failed.');
-          //               resolve(codeLink);
-          //             });
-          //       } else {
-          //           // logger.warn('[auth] access_token empty. openId: ' + openId);
-          //           resolve(codeLink);
-          //       }
-          //   })
-          //   .catch(error => {
-          //     // logger.warn('[auth] Redis.getAuthAccessToken failed. openId: ' + openId);
-          //     // logger.warn(error);
-
-          //     resolve(codeLink);
-          //   });
-
-      } else {
-        resolve(codeLink);
-        // logger.warn('[auth] openId empty.');
-      }
-    });
+          '&response_type=code&scope=' + scope + '&state=STATE#wechat_redirect'
   }
 
-  static auth2(dest, code, state, ctx) {
-    // logger.trace('[auth2] start. dest: ' + dest + ', code: ' + code + ', state: ' + state);
+  static async auth2(dest, code, state, ctx) {
+    let data = await WxApi.getAuthAccessToken(WxConfig.appId, WxConfig.secret, code).catch(error => {
+                        logger.warn('[auth2] getAuthAccessToken failed.');
+                        logger.warn(error);
+                      })
 
-    return new Promise((resolve, reject) => {
+    let info = await WxApi.getUserInfo(data.access_token, data.openid).catch(error => {
+                        logger.warn('[auth2] getUserInfo failed.');
+                        logger.warn(error);
+                      })
 
-      WxApi.getAuthAccessToken(WxConfig.appId, WxConfig.secret, code)
+    let signInfo = await this.checkOpenIdAndSign(info).catch(error => {
+                            logger.warn('[auth2] signInfo failed.');
+                            logger.warn(error);
+                          })
 
-        .then(data => {
+    try {
+      ctx.cookies.set('token', signInfo.token, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
+      ctx.cookies.set('uid', signInfo.uid, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
+      ctx.cookies.set('role', signInfo.role, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
+    } catch(e) {
+      logger.error('[auth2] set cookie failed. e:' + e);
+    }
 
-          // 最后一步，获取用户信息
-          WxApi.getUserInfo(data.access_token, data.openid)
-            .then(info => {
-
-              console.log(info)
-
-              this.checkOpenIdAndSign(info, ctx).then( signInfo => {
-
-                try {
-                  ctx.cookies.set('token', signInfo.token, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
-                  ctx.cookies.set('uid', signInfo.uid, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
-                  ctx.cookies.set('role', signInfo.role, {httpOnly:false, expires: new Date(Date.now() + 1000 * 3600 * 24 * 30 )})
-                } catch(e) {
-                  logger.error('[auth2] set cookie failed. e:' + e);
-                }
-
-                // let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
-                //     op = dest.indexOf('?') >= 0 ? '&' : '?';
-
-                // resolve(dest + op + paramsStr);
-
-                resolve(dest)
-
-              })
-
-              // let paramsStr = Querystring.stringify({userinfo: JSON.stringify(info)}),
-              //     op = dest.indexOf('?') >= 0 ? '&' : '?';
-
-              // 利用cookie保存用户openId
-              // try {
-              //   ctx.cookies.set(WxConfig.cookieOpenId, info.openid);
-              //   logger.trace('[auth2] set cookie ok. ' + WxConfig.cookieOpenId + '=' + info.openid);
-              // } catch(e) {
-              //   logger.error('[auth2] set cookie failed. e:' + e);
-              // }
-
-              // resolve(dest + op + paramsStr);
-            })
-            .catch(error => {
-              logger.warn('[auth2] getUserInfo failed.');
-              logger.warn(error);
-
-              let paramsStr = Querystring.stringify({userinfo:'{"error": "get wx getUserInfo fail", "errcode": ' + error.errcode + '}'}),
-                  op = dest.indexOf('?') >= 0 ? '&' : '?';
-
-              resolve(dest + op + paramsStr);
-            });
-
-          // 缓存refresh_token等结果
-          // Redis.tryLock('save_' + WxConfig.redisKey.authAccessToken + data.openid, 3000)
-          // Redis.tryLock(WxConfig.redisKey.authAccessToken + data.openid, 3000)
-          //   .then(lock => {
-          //       if(lock) {
-          //           this.saveAuthAccessToken(data, WxConfig.refreshTokenExpire)
-          //             .then(ret => {
-          //               Redis.unlock(lock);
-          //             })
-          //             .catch(error => {
-          //               Redis.unlock(lock);
-          //             });
-          //       }
-          //   });
-
-        })
-        .catch(error => {
-          logger.warn('[auth2] getAuthAccessToken failed.');
-          logger.warn(error);
-
-          //构造回调url
-          let paramsStr = Querystring.stringify({userinfo:'{"error": "get wx access_token fail", "errcode": ' + error.errmsg + '}'}),
-              op = dest.indexOf('?') >= 0 ? '&' : '?';
-
-          resolve(dest + op + paramsStr);
-        });
-    });
+    return dest
   }
 
-  static async checkOpenIdAndSign (uinfo, ctx) {
+  static async checkOpenIdAndSign (uinfo) {
 
     // FormData 不支持 Arrays 传参
     delete uinfo.privilege

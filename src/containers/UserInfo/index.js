@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 import './index.less'
 
-// import mokeData from './mokeUserData.js'
 import Utils from 'utils/utils'
 
 let winWidth = window.innerWidth
@@ -30,9 +29,8 @@ export default class UserPage extends React.Component {
 
     componentWillMount() {
       let token = Utils.getCookie('token')
-      console.log('token' + token)
       if(!token) {
-        window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) + '&scope=snsapi_base'
+        window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) // + '&scope=snsapi_base'
       }
     }
 

@@ -8,8 +8,6 @@ class PageController {
 
     let uid = ctx.cookies.get('uid')
 
-    console.log('uid ' + uid)
-
     let UserInfo = {}
 
     if (uid) {

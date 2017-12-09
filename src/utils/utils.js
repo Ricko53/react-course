@@ -39,22 +39,6 @@ class Utils {
     return weekday[rd.getDay()]
   }
 
-  // static getUrlHash() {
-  //   // hash值以';'分隔
-  //   // 如：to=dataStatistics => 数据统计
-  //   // 如：pid=12312312 => 作品ID
-  //   let hash = window.location.hash.substr(1).split(';')
-  //   let o = {}
-  //   let temp
-  //   hash.forEach(item => {
-  //     temp = item.split('=')
-  //     if (temp.length == 2) {
-  //       o[temp[0]] = temp[1]
-  //     }
-  //   })
-  //   return o
-  // }
-
   static getParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);

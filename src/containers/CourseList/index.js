@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
+import Fetch from 'utils/fetch'
+import Config from 'config'
+
 import FakeModel from './compontent/FakeModel.js'
 import CourseDetail from './compontent/CourseDetail.js'
 
-import mokeDate from './mokeDate.js'
-
 import './index.less'
+
+const OTOA = o => Object.keys(o).map( v => o[v] )
 
 function node_after( sib )
 {
@@ -43,6 +46,7 @@ export default class CourseList extends React.Component {
           courseList: [],
           currentDate: 0,
           listX: 0,
+          courseInfo: {},
         }
     }
 
@@ -51,10 +55,13 @@ export default class CourseList extends React.Component {
     }
 
     componentWillMount() {
-      console.log('course page')
-      this.setState({
-        courseList: mokeDate.data.dateList
+
+      Fetch(Config.COURSE_LIST).then( res => {
+        this.setState({
+          courseList: OTOA(res.dateList)
+        })
       })
+
     }
 
     handDateFunc(e, index) {
@@ -77,7 +84,7 @@ export default class CourseList extends React.Component {
 
     }
 
-    handleClick(e) {
+    handleClick(e, cid) {
       let curentDom = e.target
       let image = curentDom.style.backgroundImage
       let coverClient = curentDom.getBoundingClientRect()
@@ -90,18 +97,27 @@ export default class CourseList extends React.Component {
         baseInfo: {
          coverImage: image,
          coverClient,
-         infoClient
+         infoClient,
         }
       })
 
-       setTimeout(()=>{
-         this.setState({
-           showDetail: true,
-         })
+      setTimeout( () => {
+        Fetch(Config.COURSE_DETAIL + '?id=' + cid).then(res => {
+          this.setState({
+            courseInfo: res.course,
+            showDetail: true,
+          })
+        })
+      }, 200)
+
+       // setTimeout(()=>{
+       //   this.setState({
+       //     showDetail: true,
+       //   })
 
         // this.context.router.history.push('/courseList/1')
 
-       }, 500)
+       // }, 500)
     }
 
     closeDetailFunc() {
@@ -125,6 +141,25 @@ export default class CourseList extends React.Component {
 
         let listStyle = {
           transform: `translateX(${listX * -1}px)`,
+        }
+
+        if(courseList.length === 0){
+          return (
+            <div className="loading">
+              <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#7b1fa2">    
+                <g fill="none" fillRule="evenodd" strokeWidth="2">        
+                  <circle cx="22" cy="22" r="1">            
+                    <animate attributeName="r" begin="0s" dur="1.4s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite" />            
+                    <animate attributeName="stroke-opacity" begin="0s" dur="1.4s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite" />        
+                  </circle>        
+                  <circle cx="22" cy="22" r="1">            
+                    <animate attributeName="r" begin="-0.9s" dur="1.4s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite" />            
+                    <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.4s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite" />        
+                  </circle>    
+                </g>
+              </svg>
+            </div>
+          )
         }
 
         let curList = courseList[currentDate].courseList
@@ -154,8 +189,8 @@ export default class CourseList extends React.Component {
                 {
                   curList.map((item, i) => {
                     return (
-                      <section className="course-item" key={item.course_id}>
-                        <div className="item-cover" onClick={ e => this.handleClick(e, item.course_id)} style={{backgroundImage:`url(${item.course_cover})`}}>
+                      <section className="course-item" key={item.id}>
+                        <div className="item-cover" onClick={ e => this.handleClick(e, item.id)} style={{backgroundImage:`url(${item.course_cover})`}}>
                           <div className="cover-info">
                             <div className="cover-name">{item.course_name}</div>
                             <div className="cover-date">
@@ -166,10 +201,10 @@ export default class CourseList extends React.Component {
                         </div>
                         <div className="item-info">
                           <div className="item-left">
-                            <img className="item-thumb" src={item.course_coach.thumb} />
+                            <img className="item-thumb" src={item.course_coach.headimgurl} />
                             <div className="detail">
-                              <div className="name">{item.course_coach.name}</div>
-                              <p className="desc">{item.course_coach.desc}</p>
+                              <div className="name">{item.course_coach.nickname}</div>
+                              <p className="desc">{item.course_coach.introduce}</p>
                             </div>
                           </div>
                           <div className="item-right"></div>
@@ -182,7 +217,7 @@ export default class CourseList extends React.Component {
               </section>
             </section>
             <FakeModel show={this.state.showModel} info={this.state.baseInfo} close={this.state.closeDetail}></FakeModel>
-            <CourseDetail showDetail={this.state.showDetail} info={this.state.baseInfo} closeDetail={this.closeDetailFunc}></CourseDetail>
+            <CourseDetail showDetail={this.state.showDetail} info={this.state.baseInfo} courseInfo={this.state.courseInfo} closeDetail={this.closeDetailFunc}></CourseDetail>
           </article>
         )
     }

@@ -83,9 +83,10 @@ module.exports = {
             path.join(__dirname, './src')
         ],
         alias: {
-            "components": path.resolve(__dirname, "src/components"),
-            "containers": path.resolve(__dirname, "src/containers"),
+            // "components": path.resolve(__dirname, "src/components"),
+            // "containers": path.resolve(__dirname, "src/containers"),
             "utils": path.resolve(__dirname, "src/utils"),
+            "config": path.resolve(__dirname, "src/config.js"),
         }
     },
 
