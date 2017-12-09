@@ -1,10 +1,26 @@
 'use strict';
 
+const proxyFetch = require('../utils/proxyFetch')
+const apiConfig = require('../../conf/apiConfig')
+
 class PageController {
   static async userPage(ctx, next) {
 
+    let uid = ctx.cookies.get('uid')
+
+    console.log('uid ' + uid)
+
+    let UserInfo = {}
+
+    if (uid) {
+      UserInfo = await proxyFetch(apiConfig.USER_INFO + `?id=${uid}`)
+    } else {
+      UserInfo.data = {}
+    }
+
     await ctx.render('userPage', {
       modules: [ctx.assets.vendor, ctx.assets.userPage],
+      userInfo: JSON.stringify(UserInfo.data)
     })
   }
 

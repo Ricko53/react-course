@@ -18,7 +18,6 @@ const router = require('./routes/router')
 
 global.config = config
 
-app.use(server(path.join(__dirname, '../build')))
 app.use(bodyParser())
 
 if (devEvn) {
@@ -60,6 +59,7 @@ if (devEvn) {
     ctx.assets = require('../build/assets.json')
     await next()
   })
+  app.use(server(path.join(__dirname, '../build')))
 }
 
 app.use(xtpl({

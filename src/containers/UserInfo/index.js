@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 import './index.less'
 
-import mokeData from './mokeUserData.js'
+// import mokeData from './mokeUserData.js'
+import Utils from 'utils/utils'
 
 let winWidth = window.innerWidth
 let startX = 0
@@ -22,16 +23,17 @@ export default class UserPage extends React.Component {
         this.handleTouchEnd = this.handleTouchEnd.bind(this)
 
         this.state = {
-          userInfo: {},
+          userInfo: window.USER_INFO || {},
           moveX: 0,
         }
     }
 
     componentWillMount() {
-      console.log('user info page')
-      this.setState({
-        userInfo: mokeData.data
-      })
+      let token = Utils.getCookie('token')
+      console.log('token' + token)
+      if(!token) {
+        window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) + '&scope=snsapi_base'
+      }
     }
 
     handleClick() {
@@ -54,7 +56,7 @@ export default class UserPage extends React.Component {
       let touchXDelta = startX - touchobj.clientX
 
       if(touchXDelta > 0) {
-        moveIndex = moveIndex > this.state.userInfo.courseList.length - 2 ? moveIndex : moveIndex + 1
+        moveIndex = moveIndex > this.state.userInfo.courses.length - 2 ? moveIndex : moveIndex + 1
       } else {
         moveIndex = moveIndex === 0 ? 0 : moveIndex - 1
       }
@@ -78,10 +80,10 @@ export default class UserPage extends React.Component {
               <section className="info">
                 <div className="info-box">
                   <div className="box-base">
-                    <img className="thumb" src={userInfo.thumb} />
+                    <img className="thumb" src={userInfo.headimgurl} />
                     <div className="base">
-                      <div className="name">{userInfo.nikeName}</div>
-                      <div className="address">{userInfo.location}</div>
+                      <div className="name">{userInfo.nickname}</div>
+                      <div className="address">{userInfo.city} {userInfo.country}</div>
                     </div>
                   </div>
                   <div className="box-option"></div>
@@ -130,14 +132,14 @@ export default class UserPage extends React.Component {
               <section className="show" onTouchStart={ e => this.handleTouchStart(e)} onTouchEnd={ e => this.handleTouchEnd(e)}>
                 <div className="list" style={listStyle}>
                   {
-                    userInfo.courseList.map( (item, i) => {
+                    userInfo.courses.map( (item, i) => {
                       return (
-                        <div className="item" key={i}>
+                        <div className="item" key={item.id}>
                           <div className="item-bg" style={{backgroundImage: `url(${item.course_cover})`}}></div>
                           <div className="item-content">
                             <div className="item-left">
                               <div className="content-title">{item.course_name}</div>
-                              <div className="content-tips">{item.course_time} {item.course_date}</div>
+                              <div className="content-tips">{Utils.getWeek(item.course_date_start)} {Utils.format('hh:mm', item.course_date_start)} - {Utils.format('hh:mm', item.course_date_end)}</div>
                             </div>
                             <div className="item-right"></div>
                           </div>
