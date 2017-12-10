@@ -26,22 +26,22 @@ export default class FakeModel extends React.Component {
       if(show) {
 
         let coverStyle = {
-          top: info.coverClient.y,
-          left: info.coverClient.x,
+          top: info.coverClient.top,
+          left: info.coverClient.left,
           height: info.coverClient.height,
           width: info.coverClient.width,
         }
 
         let infoStyle = {
-          top: info.infoClient.y,
-          left: info.infoClient.x,
+          top: info.infoClient.top,
+          left: info.infoClient.left,
           height: info.infoClient.height,
           width: info.infoClient.width,
         }
 
         let coverSpring = close ? {
-          top: spring(info.coverClient.y, springConfig),
-          left: spring(info.coverClient.x, springConfig),
+          top: spring(info.coverClient.top, springConfig),
+          left: spring(info.coverClient.left, springConfig),
           height: spring(info.coverClient.height, springConfig),
           width: spring(info.coverClient.width, springConfig),
         } : {
@@ -52,8 +52,8 @@ export default class FakeModel extends React.Component {
         }
 
         let infoSpring = close ? {
-          top: spring(info.infoClient.y, springConfig),
-          left: spring(info.infoClient.x, springConfig),
+          top: spring(info.infoClient.top, springConfig),
+          left: spring(info.infoClient.left, springConfig),
           height: spring(info.infoClient.height, springConfig),
           width: spring(info.infoClient.width, springConfig),
         } : {
