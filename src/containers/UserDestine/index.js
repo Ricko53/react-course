@@ -2,40 +2,34 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-import './index.less'
+import { connect } from 'dva'
 
+import Utils from 'utils/utils'
 import DetailDestine from './compontent/DetailDestine.js'
 
-import mokeData from './mokeData.js'
+import './index.less'
 
 let winWidth = window.innerWidth
 
-export default class UserDestine extends React.Component {
+class UserDestine extends React.Component {
 
   constructor(props) {
     super(props);
-    //构造函数用法
-    //常用来绑定自定义函数，切记不要在这里或者组件的任何位置setState，state全部在reducer初始化，相信对开发的后期很有帮助
-    //例子：this.myfunction = this.myfunction.bind(this)
 
     this.handelClickFunc = this.handelClickFunc.bind(this)
     this.closeDetailFunc = this.closeDetailFunc.bind(this)
 
     this.state = {
-      userInfo: {},
       showDetail: false,
       baseData: {},
+      courseDetail: {},
     }
   }
 
   componentWillMount() {
-    console.log('destine page')
-    this.setState({
-      userInfo: mokeData.data
-    })
   }
 
-  handelClickFunc(e) {
+  handelClickFunc(e, index) {
 
     let curentDom = e.target
     let coverDom = curentDom.firstElementChild
@@ -51,7 +45,8 @@ export default class UserDestine extends React.Component {
         coverImage: image,
         coverClient: coverClient,
         boxClient: boxClient,
-      }
+      },
+      courseDetail: this.props.app.userInfo.courses[index],
     })
   }
 
@@ -60,23 +55,24 @@ export default class UserDestine extends React.Component {
       showDetail: false,
     })
     
-    document.body.style.overflow = "auto"        
-
+    document.body.style.overflow = "auto"
   }
 
   render() {
 
-    const { showDetail, userInfo, baseData } = this.state
+    const { app } = this.props
+    const { userInfo } = app
+    const { showDetail, baseData, courseDetail } = this.state
 
     return(
       <article className="destine-page">
         <section className="info">
           <div className="info-box">
             <div className="box-base">
-              <img className="thumb" src={userInfo.thumb} />
+              <img className="thumb" src={userInfo.headimgurl} />
               <div className="base">
-                <div className="name">{userInfo.nikeName}</div>
-                <div className="address">{userInfo.location}</div>
+                <div className="name">{userInfo.nickname}</div>
+                <div className="address">{userInfo.city} {userInfo.country}</div>
               </div>
             </div>
             <div className="box-option"></div>
@@ -88,13 +84,13 @@ export default class UserDestine extends React.Component {
         <section className="destine-content">
           <div className="destine-list">
             {
-              userInfo.courseList.map((item, i) => {
+              userInfo.courses.map((item, i) => {
                 return (
-                  <section className="destine-item" key={item.course_id} onClick={e => this.handelClickFunc(e)}>
+                  <section className="destine-item" key={item.id} onClick={e => this.handelClickFunc(e, i)}>
                     <div className="course-cover" style={{backgroundImage: `url(${item.course_cover})`}}></div>
                     <div className="course-info">
                       <div className="course-name">{item.course_name}</div>
-                      <div className="course-date">{item.course_time} {item.course_date}</div>
+                      <div className="course-date">{Utils.getWeek(item.course_date_start)} {Utils.format('hh:mm', item.course_date_start)} - {Utils.format('hh:mm', item.course_date_end)}</div>
                     </div>
                   </section>
                 )
@@ -102,7 +98,7 @@ export default class UserDestine extends React.Component {
             }
           </div>
         </section>
-        <DetailDestine show={showDetail} info={baseData} closeDetail={this.closeDetailFunc} ></DetailDestine>
+        <DetailDestine show={showDetail} info={baseData} courseDetail={courseDetail} closeDetail={this.closeDetailFunc} ></DetailDestine>
       </article>
     )
   }
@@ -112,3 +108,5 @@ UserDestine.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired
 }
+
+export default connect(app => app)(UserDestine)

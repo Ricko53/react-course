@@ -1,7 +1,3 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-// import { AppContainer } from 'react-hot-loader'
-
 import dva from 'dva'
 import FastClick from 'fastclick'
 import createHistory from 'history/createBrowserHistory'
@@ -12,17 +8,6 @@ import model from '../models/app'
 import UserPage from '../page/userPage'
 
 FastClick.attach(document.body)
-
-// const render = Component => {
-//     return ReactDOM.render(
-//         <AppContainer>
-//           <Component />
-//         </AppContainer>,
-//         document.getElementById('root')
-//     )
-// }
-
-// render(UserPage)
 
 // 1. Initialize
 const app = dva({
