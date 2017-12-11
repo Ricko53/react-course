@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { connect } from 'dva'
 
 import './index.less'
 
@@ -10,7 +11,7 @@ let winWidth = window.innerWidth
 let startX = 0
 let moveIndex = 0
 
-export default class UserPage extends React.Component {
+class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -22,16 +23,15 @@ export default class UserPage extends React.Component {
         this.handleTouchEnd = this.handleTouchEnd.bind(this)
 
         this.state = {
-          userInfo: window.USER_INFO || {},
           moveX: 0,
         }
     }
 
     componentWillMount() {
-      let token = Utils.getCookie('token')
-      if(!token) {
-        window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) // + '&scope=snsapi_base'
-      }
+      // let token = Utils.getCookie('token')
+      // if(!token) {
+      //   window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) // + '&scope=snsapi_base'
+      // }
     }
 
     handleClick() {
@@ -67,7 +67,11 @@ export default class UserPage extends React.Component {
 
     render() {
 
-        const { userInfo, moveX } = this.state
+        console.log(this.props)
+
+        const { app } = this.props
+        const { userInfo } = app
+        const { moveX } = this.state
 
         let listStyle = {
           transform: `translateX(${moveX}px)`
@@ -153,6 +157,12 @@ export default class UserPage extends React.Component {
 }
 
 UserPage.propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
 }
+
+const mapStateToProps = (app) => {
+  return app
+}
+
+export default connect(mapStateToProps)(UserPage)
