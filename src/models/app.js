@@ -3,11 +3,14 @@
 /* global location */
 // import { routerRedux } from 'dva/router'
 import queryString from 'query-string'
+import * as api from '../services/app'
 
 export default {
   namespace: 'app',
   state: {
     userInfo: window.USER_INFO || {},
+    showDetail: false,
+    courseDetail: {},
     pageTransitionName: 'left',
     locationPathname: '',
     locationQuery: {},
@@ -29,22 +32,36 @@ export default {
   },
   effects: {
 
-    // * changeNavbar (action, { put, select }) {
-    //   const { app } = yield (select(_ => _))
-    //   const isNavbar = document.body.clientWidth < 769
-    //   if (isNavbar !== app.isNavbar) {
-    //     yield put({ type: 'handleNavbar', payload: isNavbar })
-    //   }
-    // },
+    * getCourseDetail ({payload}, { call, put }) {
+      const currentCourse = yield call(api.getCourseDetail, payload)
+      // const currentCourse = yield api.getCourseDetail(payload)
+
+      yield put({ type: 'updateCourseDetail', payload: currentCourse.course })
+      // yield put({ type: 'changeShowDetail' })
+    }
 
   },
   reducers: {
-    // updateState (state, { payload }) {
-    //   return {
-    //     ...state,
-    //     ...payload,
-    //   }
-    // },
+    updateCourseDetail(state, {payload}) {
+      return {
+        ...state,
+        courseDetail: payload,
+      }
+    },
+
+    changeShowDetail(state) {
+      return {
+        ...state,
+        showDetail: !state.showDetail,
+      }
+    },
+
+    updateState (state, { payload }) {
+      return {
+        ...state,
+        ...payload,
+      }
+    },
 
   },
 }

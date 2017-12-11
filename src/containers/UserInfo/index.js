@@ -67,8 +67,6 @@ class UserPage extends React.Component {
 
     render() {
 
-        console.log(this.props)
-
         const { app } = this.props
         const { userInfo } = app
         const { moveX } = this.state

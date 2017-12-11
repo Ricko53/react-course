@@ -6,7 +6,7 @@ import dva from 'dva'
 import FastClick from 'fastclick'
 import createHistory from 'history/createBrowserHistory'
 import createLoading from 'dva-loading'
-// import { createLogger } from 'redux-logger';
+import { createLogger } from 'redux-logger';
 
 import model from '../models/app'
 import UserPage from '../page/userPage'
@@ -30,7 +30,7 @@ const app = dva({
     effects: true,
   }),
   history: createHistory(),
-  // onAction: createLogger(),
+  onAction: createLogger(),
   onError (error) {
     console.warn(error.message)
   },
