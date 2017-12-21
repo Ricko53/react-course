@@ -18,6 +18,7 @@ class UserDestine extends React.Component {
 
     this.handelClickFunc = this.handelClickFunc.bind(this)
     this.closeDetailFunc = this.closeDetailFunc.bind(this)
+    this.cancelAppointment = this.cancelAppointment.bind(this)
 
     this.state = {
       showDetail: false,
@@ -56,6 +57,10 @@ class UserDestine extends React.Component {
     })
     
     document.body.style.overflow = "auto"
+  }
+
+  cancelAppointment(cid) {
+    return this.props.dispatch({type: 'app/cancelCourse', payload: cid})
   }
 
   render() {
@@ -98,7 +103,12 @@ class UserDestine extends React.Component {
             }
           </div>
         </section>
-        <DetailDestine show={showDetail} info={baseData} courseDetail={courseDetail} closeDetail={this.closeDetailFunc} ></DetailDestine>
+        <DetailDestine 
+          show={showDetail} 
+          info={baseData} 
+          courseDetail={courseDetail} 
+          closeDetail={this.closeDetailFunc} 
+          cancelAppointment={this.cancelAppointment} ></DetailDestine>
       </article>
     )
   }

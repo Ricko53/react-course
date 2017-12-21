@@ -9,6 +9,8 @@ import mokedata from './mokeData.js'
 
 import './index.less'
 
+let winWidth = window.innerWidth
+let winHeight = window.innerHeight
 let currentDom
 
 export default class CoachManage extends React.Component {
@@ -31,14 +33,14 @@ export default class CoachManage extends React.Component {
         afterCoverClient: {
           y: 250,
           x: 250,
-          height: 80,
-          width: 80,
+          height: 120,
+          width: 120,
         },
         afterContentClient: {
           y: 200,
           x: 200,
-          height: 300,
-          width: 300,
+          height: 400,
+          width: winWidth - 400,
         }
       },
     }

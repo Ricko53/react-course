@@ -38,6 +38,19 @@ export default {
 
       yield put({ type: 'updateCourseDetail', payload: currentCourse.course })
       // yield put({ type: 'changeShowDetail' })
+    },
+
+    * cancelCourse ({payload}, { call, put }) {
+
+      yield call(api.cancelCourse, payload)
+      yield put({ type: 'updateCourseList' })
+
+      return
+    },
+
+    * updateCourseList ({payload}, { call, put }) {
+      const info = yield call(api.fetchUserInfo)
+      yield put({ type: 'updateState', payload: { userInfo : info } })
     }
 
   },

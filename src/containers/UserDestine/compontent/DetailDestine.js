@@ -18,6 +18,7 @@ export default class FakeModel extends React.Component {
       this.closeDetailPage = this.closeDetailPage.bind(this)
       this.handleMotionEnd = this.handleMotionEnd.bind(this)
       this.updateDetail = this.updateDetail.bind(this)
+      this.cancelAppointment = this.cancelAppointment.bind(this)
 
       this.state = {
         close: false,
@@ -53,6 +54,12 @@ export default class FakeModel extends React.Component {
         this.props.closeDetail()
         this.state.close = false
       }
+    }
+
+    cancelAppointment() {
+      this.props.cancelAppointment(this.props.courseDetail.id).then(res => {
+        this.closeDetailPage()
+      })
     }
 
     closeDetailPage() {
@@ -138,7 +145,7 @@ export default class FakeModel extends React.Component {
               <div className="dt-title">{courseData.course_name}</div>
               <div className="dt-date"><i className="icon-clock"></i>{Utils.getWeek(courseData.course_date_start)} {Utils.format('hh:mm', courseData.course_date_start)} - {Utils.format('hh:mm', courseData.course_date_end)}</div>
               <p className="dt-desc">{courseData.course_introduce}</p>
-              <div className="dt-button">取消预约</div>
+              <div className="dt-button" onClick={this.cancelAppointment}>取消预约</div>
             </div>
             <div onClick={this.closeDetailPage} className="destine-detail-bg"></div>
           </section>
@@ -156,4 +163,5 @@ FakeModel.propTypes = {
   info: PropTypes.object,
   closeDetail: PropTypes.func,
   courseDetail: PropTypes.object,
+  cancelAppointment: PropTypes.func,
 }
