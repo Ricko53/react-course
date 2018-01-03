@@ -7,8 +7,8 @@ import Utils from 'utils/utils'
 import './detailDestine.less'
 
 const springConfig = {stiffness: 800, damping: 50}
-const detailPageCover = {h: 200, w: 280, top: 100, left: (window.innerWidth - 280)/2, }
-const detailPageBox = {h: 400, w: window.innerWidth - 50, top: 150, left: 25 }
+const detailPageCover = {h: 200, w: 280, top: 60, left: (window.innerWidth - 280)/2, }
+const detailPageBox = {h: 400, w: window.innerWidth - 50, top: 110, left: 25 }
 
 export default class FakeModel extends React.Component {
 
@@ -80,23 +80,28 @@ export default class FakeModel extends React.Component {
 
       if(show) {
 
+        let coverClientTop = info.coverClient.y | info.coverClient.top
+        let coverClientLeft = info.coverClient.x | info.coverClient.left
+        let boxClientTop = info.boxClient.y | info.boxClient.top
+        let boxClientLeft = info.boxClient.x | info.boxClient.left
+
         let coverStyle = {
-          top: info.coverClient.y,
-          left: info.coverClient.x,
+          top: coverClientTop,
+          left: coverClientLeft,
           height: info.coverClient.height,
           width: info.coverClient.width,
         }
 
         let infoStyle = {
-          top: info.boxClient.y,
-          left: info.boxClient.x,
+          top: boxClientTop,
+          left: boxClientLeft,
           height: info.boxClient.height,
           width: info.boxClient.width,
         }
 
         let coverSpring = close ? {
-          top: spring(info.coverClient.y, springConfig),
-          left: spring(info.coverClient.x, springConfig),
+          top: spring(coverClientTop, springConfig),
+          left: spring(coverClientLeft, springConfig),
           height: spring(info.coverClient.height, springConfig),
           width: spring(info.coverClient.width, springConfig),
         } : {
@@ -107,8 +112,8 @@ export default class FakeModel extends React.Component {
         }
 
         let infoSpring = close ? {
-          top: spring(info.boxClient.y, springConfig),
-          left: spring(info.boxClient.x, springConfig),
+          top: spring(boxClientTop, springConfig),
+          left: spring(boxClientLeft, springConfig),
           height: spring(info.boxClient.height, springConfig),
           width: spring(info.boxClient.width, springConfig),
         } : {
