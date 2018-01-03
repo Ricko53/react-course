@@ -54,7 +54,7 @@ class UserPage extends React.Component {
       let touchXDelta = startX - touchobj.clientX
 
       if(touchXDelta > 0) {
-        moveIndex = moveIndex > this.state.userInfo.courses.length - 2 ? moveIndex : moveIndex + 1
+        moveIndex = moveIndex > this.props.app.userInfo.courses.length - 2 ? moveIndex : moveIndex + 1
       } else {
         moveIndex = moveIndex === 0 ? 0 : moveIndex - 1
       }
