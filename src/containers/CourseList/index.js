@@ -145,8 +145,6 @@ class CourseList extends React.Component {
 
   render() {
 
-      console.log(this.props)
-
       let { app } = this.props
       let { courseDetail } = app
 
