@@ -66,7 +66,9 @@ class ApiController extends BaseController {
   static async proxy(ctx, next) {
 
     // '/api/v1/res' -> '/v1/res'
-    let url = global.config.apiProxy + ctx.request.url.split('/api')[1]
+    // let url = global.config.apiProxy + ctx.request.url.split('/api')[1]
+
+    let url = ctx.request.url.replace(/\/api/, '')
 
     let option = {
       method: ctx.request.method,
