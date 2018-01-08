@@ -1,5 +1,5 @@
 // const fetch from 'fetch'
-// import FetchApi from 'dva/fetch'
+import fetch from 'dva/fetch'
 
 export default function(url, option = {}) {
   return new Promise( (resolve, reject) => {

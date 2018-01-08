@@ -56,7 +56,7 @@ class CourseList extends React.Component {
     router: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
 
     Fetch(Config.COURSE_LIST).then( res => {
       this.setState({
