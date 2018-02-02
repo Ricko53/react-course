@@ -29,9 +29,9 @@ class UserPage extends React.Component {
 
     componentWillMount() {
       let token = Utils.getCookie('token')
-      if(!token) {
-        window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) // + '&scope=snsapi_base'
-      }
+      // if(!token) {
+      //   window.location.href = document.location.origin + '/wx/auth?dest=' + encodeURIComponent(window.location.href) // + '&scope=snsapi_base'
+      // }
     }
 
     handleClick() {

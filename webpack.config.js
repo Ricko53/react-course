@@ -85,8 +85,11 @@ module.exports = {
         alias: {
             // "components": path.resolve(__dirname, "src/components"),
             // "containers": path.resolve(__dirname, "src/containers"),
+            "assets": path.resolve(__dirname, "src/assets"),
+            "style": path.resolve(__dirname, "src/style"),
             "utils": path.resolve(__dirname, "src/utils"),
             "config": path.resolve(__dirname, "src/config.js"),
+            "commons": path.resolve(__dirname, "src/commons"),
         }
     },
 

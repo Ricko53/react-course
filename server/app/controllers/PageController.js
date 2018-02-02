@@ -6,7 +6,7 @@ const apiConfig = require('../../conf/apiConfig')
 class PageController {
   static async userPage(ctx, next) {
 
-    let uid = ctx.cookies.get('uid')
+    let uid = 9 //ctx.cookies.get('uid')
 
     let UserInfo = {}
 

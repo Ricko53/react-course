@@ -2,16 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Route, routerRedux } from 'dva/router'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
-import ReactChildrenMap from '../containers/Commons/ReactChildrenMap'
+import ReactChildrenMap from 'commons/ReactChildrenMap'
 
-import '../style/main.less'
-import '../style/style.less'
+import 'style/main.less'
+import 'style/style.less'
 
-import UserInfo from '../containers/UserInfo'
-import CourseList from '../containers/CourseList'
-import UserDestine from '../containers/UserDestine'
-import CourseDetail from '../containers/CourseDetail'
-import CoachPage from '../containers/CoachPage'
+import UserInfo from './containers/UserInfo'
+import CourseList from './containers/CourseList'
+import UserDestine from './containers/UserDestine'
+import CourseDetail from './containers/CourseDetail'
+import CoachPage from './containers/CoachPage'
 
 const { ConnectedRouter } = routerRedux
 

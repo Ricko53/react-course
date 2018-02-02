@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
-import DetailLayoutTransform from '../Commons/DetailLayoutTransform'
+import DetailLayoutTransform from 'commons/DetailLayoutTransform'
 
 import mokedata from './mokeData.js'
 

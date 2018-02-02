@@ -4,7 +4,7 @@ import createHistory from 'history/createBrowserHistory'
 import createLoading from 'dva-loading'
 import { createLogger } from 'redux-logger';
 
-import model from '../models/app'
+import model from '../page/userPage/models/app'
 import UserPage from '../page/userPage'
 
 FastClick.attach(document.body)
