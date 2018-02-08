@@ -1,15 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Dialog from 'material-ui/Dialog'
-import RaisedButton from 'material-ui/RaisedButton'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import TextField from 'material-ui/TextField'
-
-import DatePicker from 'material-ui/DatePicker'
-import TimePicker from 'material-ui/TimePicker'
-
 import './index.less'
 
 import fakeData from './mokeData'
@@ -78,11 +69,6 @@ export default class CourseManage extends React.Component {
       marginLeft: 20,
     }
 
-    let dialogButtons = [
-      <RaisedButton label="取消" onClick={this.handleCloseDialog} />,
-      <RaisedButton label="确认" backgroundColor={"#7b1fa2"} style={sublimeButton} labelColor={'#FFFFFF'} />
-    ]
-
     // floatingLabelText="课程名称"
     // floatingLabelFocusStyle={{color: '#7b1fa2'}}
     // underlineFocusStyle={{borderColor: '#7b1fa2'}}
@@ -92,9 +78,6 @@ export default class CourseManage extends React.Component {
         <div className="course-option">
           <div className="option-left"></div>
           <div className="option-right">
-            <FloatingActionButton mini={true} backgroundColor={"#7b1fa2"} onClick={this.handleOpenDialog}>
-              <ContentAdd />
-            </FloatingActionButton>
           </div>
         </div>
         <div className="row-flex flex-wrap">
@@ -123,64 +106,6 @@ export default class CourseManage extends React.Component {
             })
           }
         </div>
-
-        <Dialog
-          title={"创建新课程"}
-          actions={dialogButtons}
-          modal={false}
-          open={open}
-          onRequestClose={this.handleCloseDialog}
-          autoScrollBodyContent={false}
-        >
-          <div className="creat-course-content">
-            <section className="course-input">
-              <label className="input-name">课程名称</label>
-              <TextField
-                hintText="瑜伽体验课程"
-              />
-            </section>
-            <section className="course-input">
-              <label className="input-name">封面图片</label>
-              <TextField
-                hintText="http://images.cdn.com/image.jpg"
-              />
-            </section>
-            <section className="course-input">
-              <label className="input-name">课程日期</label>
-              <DatePicker 
-                hintText="2018-1-1" 
-                mode="landscape"
-                value={date}
-                onChange={this.handleChangeDatePicker}
-              />
-            </section>
-            <section className="course-input">
-              <label className="input-name">开始时间</label>
-              <TimePicker
-                format="24hr"
-                hintText="7:30"
-                value={startTime}
-                onChange={(event, date) => this.handleChangeInputValue('startTime', date)}
-              />
-            </section>
-            <section className="course-input">
-              <label className="input-name">结束时间</label>
-              <TimePicker
-                format="24hr"
-                hintText="9:30"
-                value={endTime}
-                onChange={(event, date) => this.handleChangeInputValue('endTime', date)}
-              />
-            </section>
-            <section className="course-input">
-              <label className="input-name">课程教练</label>
-            </section>
-            <section className="course-input course-input-max">
-              <label className="input-name">课程介绍</label>
-              <textarea className="course-textarea"></textarea>
-            </section>
-          </div>
-        </Dialog>
       </section>
     )
   }

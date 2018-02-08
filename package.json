@@ -78,7 +78,6 @@
     "koa-static": "^4.0.2",
     "koa-xtpl": "^2.1.1",
     "log4js": "^2.3.12",
-    "material-ui": "^0.19.4",
     "node-fetch": "^1.7.3",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",

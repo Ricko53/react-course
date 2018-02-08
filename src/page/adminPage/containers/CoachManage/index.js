@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
 
 import DetailLayoutTransform from 'commons/DetailLayoutTransform'
 
@@ -92,9 +90,6 @@ export default class CoachManage extends React.Component {
         <div className="coach-option">
           <div className="option-left"></div>
           <div className="option-right">
-            <FloatingActionButton mini={true} backgroundColor={"#7b1fa2"} onClick={this.handleOpenDialog}>
-              <ContentAdd />
-            </FloatingActionButton>
           </div>
         </div>
         <div className="coach-list row-flex flex-wrap">
