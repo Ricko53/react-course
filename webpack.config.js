@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const AssetsPlugin = require('assets-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const pageConfig = require('./src/entry.js')
+const uglify = require('uglifyjs-webpack-plugin')
 
 //判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -44,7 +45,8 @@ if (isPro) {
       }),
       new AssetsPlugin({
         filename: '/build/assets.json'
-      })
+      }),
+      new uglify()
   )
 } else {
   // entries.app.unshift('react-hot-loader/patch', `webpack-dev-server/client?http://localhost:3000`, 'webpack/hot/only-dev-server')
