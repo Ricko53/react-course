@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
 
 import loginPage from '../page/loginPage'
 
@@ -10,9 +9,7 @@ import 'assets/css/material-kit.css'
 
 const render = Component => {
     return ReactDOM.render(
-        <AppContainer>
-          <Component />
-        </AppContainer>,
+        <Component />,
         document.getElementById('root')
     )
 }

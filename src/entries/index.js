@@ -15,7 +15,7 @@ const app = dva({
     effects: true,
   }),
   history: createHistory(),
-  onAction: createLogger(),
+  // onAction: createLogger(),
   onError (error) {
     console.warn(error.message)
   },

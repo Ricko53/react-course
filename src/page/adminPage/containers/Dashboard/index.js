@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect, Link } from 'react-router-dom'
 import classnames from 'classnames'
+import { connect } from 'dva'
 
 import MessageManage from '../MessageManage'
 import CourseManage from '../CourseManage'
@@ -9,8 +10,8 @@ import CoachManage from '../CoachManage'
 import UserManage from '../UserManage'
 
 import './index.less'
-
-export default class Dashboard extends React.Component {
+ 
+class Dashboard extends React.Component {
 
   constructor(props) {
       super(props);
@@ -86,3 +87,5 @@ export default class Dashboard extends React.Component {
     )
   }
 }
+
+export default connect(app => app)(Dashboard)

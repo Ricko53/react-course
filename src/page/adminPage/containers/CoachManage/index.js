@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'dva'
 
 import DetailLayoutTransform from 'commons/DetailLayoutTransform'
 
@@ -11,7 +12,7 @@ let winWidth = window.innerWidth
 let winHeight = window.innerHeight
 let currentDom
 
-export default class CoachManage extends React.Component {
+class CoachManage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -83,6 +84,8 @@ export default class CoachManage extends React.Component {
 
   render() {
 
+    console.log(this.props)
+
     let { coachList, showDetail, imageInfo, initPostiton, transPosition } = this.state
 
     return(
@@ -120,3 +123,5 @@ export default class CoachManage extends React.Component {
     )
   }
 }
+
+export default connect(state => ({ list: state.app.coachList }))(CoachManage)
