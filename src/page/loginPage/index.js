@@ -50,7 +50,7 @@ export default class LoginPage extends React.Component {
           </form>
         </section>
         <footer className="footer">
-          © 2017 made with by JinLang
+          © 2018 made with by JinLang
         </footer>
       </article>
     )

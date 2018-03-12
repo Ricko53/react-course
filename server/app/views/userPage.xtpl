@@ -38,9 +38,9 @@
   document.body.addEventListener('touchstart', function () { });
 </script>
 
-<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
-
+ -->
 {{#each(modules)}}
   <script src='{{js}}'></script>
 {{/each}}
